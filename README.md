@@ -1,4 +1,5 @@
 2018-8-25
+
 熟悉scrapy爬取流程，pipeline,item,xpath,request,linkextrator,parse,yield,setting,header,Field()
 python基本语法
 
