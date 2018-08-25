@@ -15,7 +15,7 @@ Restlet Cilent使用
 
 解决问题
 eval函数unpack(jsbeautifier)获取图片链接
-根据漫画分门别类存储
+根据漫画分门别类存储，根据漫画的目录页重命名文件夹，达到规整的目的
 解决被网站ban的问题
 packer.py中遇到未预料的问题，暂时将base值设定为62解决，后续再了解原理
 

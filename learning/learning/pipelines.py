@@ -20,13 +20,17 @@ from os.path import basename, dirname, join
 
 class ImagesrenamePipeline(ImagesPipeline):
 
-    # def get_media_requests(self, item, info):
-    #
-    #     for image_url in item['image_urls']:
-    #         yield Request(image_url)
+    def get_media_requests(self, item, info):
+
+        for image_url in item['image_urls']:
+            yield Request(image_url,meta={'item':item})
 
 
     def file_path(self, request, response=None, info=None):
+
+        # print("到达file_path")
+
+        item = request.meta.get('item')
 
         # print("开始")
         #
@@ -45,4 +49,12 @@ class ImagesrenamePipeline(ImagesPipeline):
 
         # return join(basename(dirname(path)), basename(path))
         #这里的basename会删减路径，直接删掉，达到分文件夹存储
-        return join(dirname(path), basename(path))
+        #这里有一点不完善，应该对应目录页的名字，而不是文件名的名字
+        # return join(dirname(path), basename(path))
+        print("这里这里")
+        # real = join( "/" + dirname(path).split("/")[1] + "/"+ item['img_dirname1'] + "/" + item['img_dirname2'] + "/", basename(path))
+        real = join( dirname(path).split("/")[1],item['img_dirname1'],item['img_dirname2'], basename(path))
+        print(real)
+        print("这里这里")
+        # return join("/"+dirname(path).split("/")[1] + "/" + item['img_dirname'] + "/", basename(path))
+        return real

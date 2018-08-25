@@ -17,6 +17,8 @@ class LearningItem(scrapy.Item):
 
     title = Field()
     price = Field()
+    img_dirname2 = Field()
+    img_dirname1 = Field()
     description = Field()
     address = Field()
     image_name = Field()

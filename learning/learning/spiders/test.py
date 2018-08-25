@@ -6,16 +6,16 @@ path = urlparse(url).path
 path = unquote(path, encoding="utf-8").replace(" ","_").replace("/b","")
 
 
-basename1 = path.split("/")[-1]
-dirname1 = path.split("/")[:-1]
+# basename1 = path.split("/")[-1]
+# dirname1 = path.split("/")[:-1]
 
 # already_joined = join(basename(dirname(path)), basename(path))
 already_joined = join(dirname(path), basename(path))
 print("path = %s" %path)
-print("basename = %s" %basename1)
-print("dirname = %s" %dirname1)
+# print("basename = %s" %basename1)
+# print("dirname = %s" %dirname1)
 print("already_joined = %s" %already_joined)
 
+# print("/"+dirname(path).split("/")[1] + "/")
 print(dirname(path))
-
 # print(type(path))

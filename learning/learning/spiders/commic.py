@@ -10,21 +10,21 @@ class CommicSpider(scrapy.Spider):
     name = 'commic'
     allowed_domains = ['dmzj']
 
-    start_urls = ["https://manhua.dmzj.com/buyilianmen/"]
+    # start_urls = ["https://manhua.dmzj.com/xinwebfxbuxiuchuanqi/"]
     #设置待爬取的漫画目录页
-    # start_urls = ["https://manhua.dmzj.com/tags/dccomics.shtml"]
+    start_urls = ["https://manhua.dmzj.com/tags/dccomics.shtml"]
 
     #抽取每个漫画的链接
-    # def parse(self, response):
-    #     link = LinkExtractor(restrict_css='#hothit > div.pic')
-    #     links = link.extract_links(response)
-    #
-    #     for link in links:
-    #         yield Request(url=link.url, callback=self.parse1,dont_filter=True)
+    def parse(self, response):
+        link = LinkExtractor(restrict_css='#hothit > div.pic')
+        links = link.extract_links(response)
+
+        for link in links:
+            yield Request(url=link.url, callback=self.parse1,dont_filter=True)
 
     #抽取每一话的链接
-    # def parse1(self, response):
-    def parse(self, response):
+    def parse1(self, response):
+    # def parse(self, response):
         link = LinkExtractor(restrict_css='body > div.wrap > div.middleright > div > div.cartoon_online_border > ul > li')
         links = link.extract_links(response)
         # link1 = link.extract_links(response)[0]
@@ -48,6 +48,9 @@ class CommicSpider(scrapy.Spider):
 
 
         item['image_urls'] = map(lambda x:"https://images.dmzj.com/" + x,pages)
+
+        item['img_dirname2'] = response.xpath("//span[@class='redhotl']/text()").extract()[0]
+        item['img_dirname1'] = response.xpath("//a[@class='redhotl']/text()").extract()[0]
         # item['image_urls'].append("https://images.dmzj.com/" + pages[0])
 
         # for img_link in pages:
