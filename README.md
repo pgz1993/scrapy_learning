@@ -62,6 +62,16 @@ scrapy_deltafetch 增量抓取
 博客
 跟随别人的脚步
 网站存储数据的模式
+网站所使用的技术
+Bloom Filter
+集群化抓取
+scrapy -redis
+
+
+经验：
+点击下一页的时候网页URL没有变，即申明该网页是动态加载
+
+加密必定要用JS进行加密的。
 
 下一步：
 数据分析
@@ -69,3 +79,30 @@ scrapy_deltafetch 增量抓取
 数据可视化
 数据统计
 
+2018-8-26
+
+什么是 XMLHttpRequest 对象？
+XMLHttpRequest 对象用于在后台与服务器交换数据。
+
+XMLHttpRequest 对象是开发者的梦想，因为您能够：
+
+在不重新加载页面的情况下更新网页
+在页面已加载后从服务器请求数据
+在页面已加载后从服务器接收数据
+在后台向服务器发送数据
+
+网易云音乐架构
+不是 Angular，而是首页内嵌了 iframe，然后通过类似于 Angular router 的方式来管理 iframe 的 URL
+The size of requests.queue may be wrong when resuming crawl from unclean shutdown.
+
+
+2018-8-26
+
+如何爬满网速
+目前六千个请求有一千个404，将404url 重新加入队列
+
+使用RetryMiddleware中间件试试，设置这几个参数：
+
+RETRY_ENABLED: 是否开启retry
+RETRY_TIMES: 重试次数
+RETRY_HTTP_CODECS: 默认是500,502,503,504,408
