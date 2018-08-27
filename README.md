@@ -106,3 +106,29 @@ The size of requests.queue may be wrong when resuming crawl from unclean shutdow
 RETRY_ENABLED: 是否开启retry
 RETRY_TIMES: 重试次数
 RETRY_HTTP_CODECS: 默认是500,502,503,504,408
+
+
+8-26
+google art使用瓦片技术，xhr动态加载图片，一幅作品分割成多个小图片，需要拼接，图片之间尚未有规律，在开发者窗口看到的图片和原图色调不一样，但是清晰度是一致的
+不同的清晰度对应不同的版本，一共有几种版本，分别加载
+WTpPG是对应的分割文件
+维基百科上的并不是原始文件，giga fine art 上有更大的版本，只是受限制的
+
+
+512x512
+
+是否可以从其他博物馆爬取
+
+
+
+
+
+
+
+
+
+
+
+
+
+
