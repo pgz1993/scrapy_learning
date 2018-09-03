@@ -139,7 +139,12 @@ warnings.warn('Selenium support for PhantomJS has been deprecated
 mysql的workbench和server,在server中指定my.cnf的时候会引发开启服务马上关闭，各方怀疑后，修改一行： secure-file-priv= ''解决问题，可能是路径有问题，或者权限方面，但是修改权限后bug仍在，所以不深究了，继续
 
 修改数据库的时候要记得备份，最好有神经质一样的备份频率，否则开启binlog,可容灾
-123
+
+使用following的形式不可取，有随机多个的时候无法全部提取
+
+当提取有困难的时候，使用正则表达式可能会方便
+
+当提取特征不明显的内容时，xpath的轴可能有用
 
 
 

@@ -64,9 +64,6 @@ ROBOTSTXT_OBEY = False
 
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'learning.pipelines.LearningPipeline': 300,
-#}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html
@@ -93,6 +90,7 @@ ROBOTSTXT_OBEY = False
 ITEM_PIPELINES = {
     # 'scrapy.pipelines.images.ImagesPipeline': 1,
     # 'learning.pipelines.ImagesrenamePipeline':1,
+    'learning.pipelines.StripPipeline':1,
 
 }
 IMAGES_STORE = '/Users/hjx/Downloads/123'
@@ -120,7 +118,7 @@ DEFAULT_REQUEST_HEADERS = {
     "accept-encoding": " gzip, deflate, br",
     "accept-language":" zh-CN,zh;q=0.9,en;q=0.8,zh-TW;q=0.7",
     "cookie": " show_tip_1=0",
-    "referer":" https://manhua.dmzj.com/buyilianmen/22505.shtml",
+    # "referer":" https://manhua.dmzj.com/buyilianmen/22505.shtml",
     "user-agent":" Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36"
 
 

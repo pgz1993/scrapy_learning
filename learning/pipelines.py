@@ -60,3 +60,51 @@ class ImagesrenamePipeline(ImagesPipeline):
         # print("这里这里")
         # return join("/"+dirname(path).split("/")[1] + "/" + item['img_dirname'] + "/", basename(path))
         return store_path
+
+class StripPipeline(object):
+    # def __init__(self):    
+        # 可选实现，做参数初始化等
+        # doing something
+
+    def process_item(self, item, spider):
+        # item (Item 对象) – 被爬取的item
+        # spider (Spider 对象) – 爬取该item的spider
+        # 这个方法必须实现，每个item pipeline组件都需要调用该方法，
+        # 这个方法必须返回一个 Item 对象，被丢弃的item将不会被之后的pipeline组件所处理。
+        writers_to_string = ""
+        for i in range(len(item['writers'])):
+            writers_to_string += item['writers'][i].replace(" ","").replace("\n","") + "/"
+        item['writers'] = writers_to_string.strip("/")
+
+        translators_to_string = ""
+        
+        for i in range(len(item['translators'])):
+            translators_to_string += item['translators'][i] + "/"
+        item['translators'] = translators_to_string.strip("/")
+
+        summary_to_string = ''
+        for i in range(len(item['summary'])):
+            summary_to_string += item['summary'][i] + "/"
+        
+        item['summary'] = summary_to_string.strip("/")
+
+        # item['price'] = item['price'].replace("元","")
+
+        # item['catalog'] = item['catalog'][:-2]
+        catalog_to_string = ''
+        for i in range(len(item['catalog'])):
+            catalog_to_string += item['catalog'][i].replace(" ","").replace("\n","") + "/"
+        item['catalog'] = catalog_to_string.strip("/")
+
+        tag_to_string = ''
+        for i in range(len(item['tag'])):
+            tag_to_string += item['tag'][i] + "/"
+        item['tag'] = tag_to_string.strip("/")
+
+        series_info_to_string = ''
+        for i in range(len(item['series_info'])):
+            series_info_to_string += item['series_info'][i].replace('\n',"").replace("\u3000","") + "/"
+
+        item['series_info'] = series_info_to_string.strip("/")
+
+        return item
