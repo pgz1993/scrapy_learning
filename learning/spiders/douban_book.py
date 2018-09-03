@@ -6,6 +6,7 @@ from scrapy.http import Request
 import jsbeautifier.unpackers.packer as packer
 
 #抽取标签后，翻到第50页失效，所以抽取标签页不可行
+#test
 
 
 class CommicSpider(scrapy.Spider):
