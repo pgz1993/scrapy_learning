@@ -7,7 +7,7 @@ import jsbeautifier.unpackers.packer as packer
 
 
 class CommicSpider(scrapy.Spider):
-    name = 'fengyun'
+    name = 'sdmb'
     allowed_domains = ['dmzj']
 
 
@@ -15,11 +15,33 @@ class CommicSpider(scrapy.Spider):
     #设置待爬取的漫画目录页
     # start_urls = ["https://manhua.dmzj.com/tags/dccomics.shtml"]
     #
+    #将无规律网页先添加，或者可以用LinkExtrator抽取
 
-    start_urls = []
+    start_urls = ["https://manhua.dmzj.com/sidamingpu/11171.shtml#@page=1",
+"https://manhua.dmzj.com/sidamingpu/10745.shtml#@page=1",
+"https://manhua.dmzj.com/sidamingpu/10564.shtml#@page=1",
+"https://manhua.dmzj.com/sidamingpu/10208.shtml#@page=1",
+"https://manhua.dmzj.com/sidamingpu/9962.shtml#@page=1",
+"https://manhua.dmzj.com/sidamingpu/9851.shtml#@page=1",
+"https://manhua.dmzj.com/sidamingpu/9606.shtml#@page=1",
+"https://manhua.dmzj.com/sidamingpu/9388.shtml#@page=1",
+"https://manhua.dmzj.com/sidamingpu/9184.shtml#@page=1",
+"https://manhua.dmzj.com/sidamingpu/9084.shtml#@page=1",
+"https://manhua.dmzj.com/sidamingpu/8938.shtml#@page=1",
+"https://manhua.dmzj.com/sidamingpu/8620.shtml#@page=1",
+"https://manhua.dmzj.com/sidamingpu/8465.shtml#@page=1",
+"https://manhua.dmzj.com/sidamingpu/8295.shtml#@page=1",
+"https://manhua.dmzj.com/sidamingpu/8294.shtml#@page=1",
+"https://manhua.dmzj.com/sidamingpu/7685.shtml#@page=1",
+"https://manhua.dmzj.com/sidamingpu/7656.shtml#@page=1",
+"https://manhua.dmzj.com/sidamingpu/5486.shtml#@page=1",
+"https://manhua.dmzj.com/sidamingpu/5485.shtml#@page=1",
+"https://manhua.dmzj.com/sidamingpu/5152.shtml#@page=1",
+"https://manhua.dmzj.com/sidamingpu/5151.shtml#@page=1"]
+
     #如果网页有规律，就在这里构造
-    for i in range(4510,4624):
-        start_urls.append("https://manhua.dmzj.com/fengyun/" + str(i) + ".shtml#@page=1")
+    for i in range(4491,4837):
+        start_urls.append("https://manhua.dmzj.com/sidamingpu/" + str(i) + ".shtml#@page=1")
 
 
     #浪客行

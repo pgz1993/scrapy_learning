@@ -125,6 +125,23 @@ WTpPG是对应的分割文件
 所以呢，技术不够，机器来凑，云主机按量付费也没多少，如果你爬回来的数据连这点机器的钱都不值得，那我估计更不值得你投入这么大的人力去搞这个东西。
 
 
+8-27
+
+8-28
+
+8-29
+豆瓣图书评分
+
+8-30
+warnings.warn('Selenium support for PhantomJS has been deprecated
+
+9-3 
+mysql的workbench和server,在server中指定my.cnf的时候会引发开启服务马上关闭，各方怀疑后，修改一行： secure-file-priv= ''解决问题，可能是路径有问题，或者权限方面，但是修改权限后bug仍在，所以不深究了，继续
+
+修改数据库的时候要记得备份，最好有神经质一样的备份频率，否则开启binlog,可容灾
+
+
+
 
 
 

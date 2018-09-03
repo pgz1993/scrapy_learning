@@ -92,7 +92,7 @@ ROBOTSTXT_OBEY = False
 
 ITEM_PIPELINES = {
     # 'scrapy.pipelines.images.ImagesPipeline': 1,
-    'learning.pipelines.ImagesrenamePipeline':1,
+    # 'learning.pipelines.ImagesrenamePipeline':1,
 
 }
 IMAGES_STORE = '/Users/hjx/Downloads/123'

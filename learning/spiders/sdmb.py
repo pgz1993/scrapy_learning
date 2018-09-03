@@ -7,33 +7,45 @@ import jsbeautifier.unpackers.packer as packer
 
 
 class CommicSpider(scrapy.Spider):
-    name = 'commic'
+    name = 'fengyun'
     allowed_domains = ['dmzj']
+
 
     # start_urls = ["https://manhua.dmzj.com/xinwebfxbuxiuchuanqi/"]
     #设置待爬取的漫画目录页
-    start_urls = ["https://manhua.dmzj.com/tags/dccomics.shtml"]
+    # start_urls = ["https://manhua.dmzj.com/tags/dccomics.shtml"]
+    #
 
+    start_urls = []
+    #如果网页有规律，就在这里构造
+    for i in range(4510,4624):
+        start_urls.append("https://manhua.dmzj.com/fengyun/" + str(i) + ".shtml#@page=1")
+
+
+    #浪客行
+    # start_urls = ["https://manhua.dmzj.com/lkxlrjk"]
     #抽取每个漫画的链接
-    def parse(self, response):
-        link = LinkExtractor(restrict_css='#hothit > div.pic')
-        links = link.extract_links(response)
-
-        for link in links:
-            yield Request(url=link.url, callback=self.parse1,dont_filter=True)
+    # def parse(self, response):
+    #     link = LinkExtractor(restrict_css='#hothit > div.pic')
+    #     links = link.extract_links(response)
+    #
+    #     for link in links:
+    #         yield Request(url=link.url, callback=self.parse1,dont_filter=True)
 
     #抽取每一话的链接
-    def parse1(self, response):
+    # def parse1(self, response):
     # def parse(self, response):
-        link = LinkExtractor(restrict_css='body > div.wrap > div.middleright > div > div.cartoon_online_border > ul > li')
-        links = link.extract_links(response)
-        # link1 = link.extract_links(response)[0]
-
-        for link in links:
-            yield Request(url=link.url, callback=self.parse2,dont_filter=True)
+    #     link = LinkExtractor(restrict_css='body > div.wrap > div.middleright > div > div.cartoon_online_border > ul > li')
+    #     links = link.extract_links(response)
+    #     # link1 = link.extract_links(response)[0]
+    #
+    #     for link in links:
+    #         yield Request(url=link.url, callback=self.parse2,dont_filter=True)
 
     #抽取每一页的链接
-    def parse2(self,response):
+    # def parse2(self,response):
+
+    def parse(self,response):
 
         script = response.xpath('//script[1]/text()').extract()[0]
         parse_str = script.strip().split('\n')[2]
@@ -58,6 +70,9 @@ class CommicSpider(scrapy.Spider):
             # item["image_urls"] = "https://images.dmzj.com/" + img_link
 
         yield item
+
+
+
             # full_link = "https://images.dmzj.com/" + img_link
 
 
