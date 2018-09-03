@@ -30,3 +30,8 @@ class LearningItem(scrapy.Item):
     spider = Field()
     server = Field()
     date = Field()
+    writer = Field()
+    publish = Field()
+    orgin_name = Field()
+    translator = Field()
+
