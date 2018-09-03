@@ -6,7 +6,7 @@ from scrapy.http import Request
 import jsbeautifier.unpackers.packer as packer
 
 #抽取标签后，翻到第50页失效，所以抽取标签页不可行
-#test
+#
 
 
 class CommicSpider(scrapy.Spider):
@@ -15,6 +15,7 @@ class CommicSpider(scrapy.Spider):
 
     # global start_urls
     start_urls = ["https://book.douban.com/subject/1083428/"]
+    print("开始啦")
     #浪客行
     # start_urls = ["https://manhua.dmzj.com/lkxlrjk"]
     #抽取每个漫画的链接
@@ -37,7 +38,7 @@ class CommicSpider(scrapy.Spider):
         for link in links:
             # print(link.url)
             # print("a")
-            yield Request(url=link.url, callback=self.parse2,dont_filter=True)
+            yield Request(url=link.url, callback=self.parse2,dont_filter=False)
 
     #抽取每一页的链接
     def parse2(self,response):
@@ -84,7 +85,9 @@ class CommicSpider(scrapy.Spider):
         yield item
 
         link = LinkExtractor(restrict_xpaths=('//*[@id="db-rec-section"]/div//dl//dd'))
-        next_page =  link.extract_links(response)
-        yield scrapy.Request(, callback=self.parse)
+        links =  link.extract_links(response)
+        for link in links:
+            yield Request(url=link.url, callback=self.parse, dont_filter=False)
+
 
 
