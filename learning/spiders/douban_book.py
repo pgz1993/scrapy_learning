@@ -8,6 +8,13 @@ import jsbeautifier.unpackers.packer as packer
 #抽取标签后，翻到第50页失效，所以抽取标签页不可行
 #
 
+#爬取当前页
+#抽取当前页的链接
+#发送到下一个函数
+#下一个函数回调第一个函数
+#爬取一个页面后，直接将新的url push 给redis
+#不要猜
+
 
 class CommicSpider(scrapy.Spider):
     name = 'book'
@@ -15,7 +22,7 @@ class CommicSpider(scrapy.Spider):
 
     # global start_urls
     start_urls = ["https://book.douban.com/subject/1083428/"]
-    print("开始啦")
+    # print("开始啦")
     #浪客行
     # start_urls = ["https://manhua.dmzj.com/lkxlrjk"]
     #抽取每个漫画的链接
@@ -35,13 +42,18 @@ class CommicSpider(scrapy.Spider):
         links = link.extract_links(response)
         # link1 = link.extract_links(response)[0]
 
+        #获得十个链接
+
         for link in links:
             # print(link.url)
-            # print("a")
-            yield Request(url=link.url, callback=self.parse2,dont_filter=False)
+            print("抛出一个链接")
+            yield Request(url=link.url, callback=self.parse2,dont_filter=True)
 
     #抽取每一页的链接
     def parse2(self,response):
+        #请求了其中一个连接
+        print("请求了其中一个链接")
+        #
         # print("进来了")
 
         # script = response.xpath('//script[1]/text()').extract()[0]
@@ -81,13 +93,16 @@ class CommicSpider(scrapy.Spider):
         # for img_link in pages:
 
             # item["image_urls"] = "https://images.dmzj.com/" + img_link
+        print("抛出一个item")
 
         yield item
 
         link = LinkExtractor(restrict_xpaths=('//*[@id="db-rec-section"]/div//dl//dd'))
         links =  link.extract_links(response)
+        #
         for link in links:
-            yield Request(url=link.url, callback=self.parse, dont_filter=False)
-
+            print("抽取新的链接并发送")
+            # yield Request(url=link.url, callback=self.parse, dont_filter=False)
+            yield scrapy.Request(link.url, callback=self.parse)
 
 
