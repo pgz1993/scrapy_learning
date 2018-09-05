@@ -78,25 +78,30 @@ class StripPipeline(object):
         # 可选实现，做参数初始化等
         # doing something
 
-    def to_string(item_argv):
 
-        str_tmp = ''
-
-        if item[item_argv] is not None:
-
-            for i in item[item_argv]:
-                str_tmp +=  i.replace("\n","").replace(" ","") + "/"
-
-            item[item_argv] = str_tmp.strip("/")
-
-        return item[item_argv]
 
 
     def process_item(self, item, spider):
+
+        # print("catalog")
+        # print(item['catalog'])
         # item (Item 对象) – 被爬取的item
         # spider (Spider 对象) – 爬取该item的spider
         # 这个方法必须实现，每个item pipeline组件都需要调用该方法，
         # 这个方法必须返回一个 Item 对象，被丢弃的item将不会被之后的pipeline组件所处理。
+
+        def to_string(item_argv):
+
+            str_tmp = ''
+
+            if item[item_argv] is not None:
+
+                for i in item[item_argv]:
+                    str_tmp +=  i.replace("\n","").replace(" ","") + "/"
+
+                item[item_argv] = str_tmp.strip("/")
+
+            return item[item_argv]
 
 
         item['writers'] = to_string('writers')
@@ -105,6 +110,8 @@ class StripPipeline(object):
         item["catalog"] = to_string("catalog")
         item["tag"] = to_string("tag")
         item["series_info"] = to_string("series_info")
+
+        return item
 
 
 
@@ -145,4 +152,4 @@ class StripPipeline(object):
 
         # item['series_info'] = series_info_to_string.strip("/")
 
-        return item
+        

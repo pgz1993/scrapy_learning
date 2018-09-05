@@ -15,16 +15,6 @@ class CommicSpider(scrapy.Spider):
 
     start_urls = ["https://book.douban.com/subject/1083428"]
 
-
-    def is_exist(item_argv,xpath1,**xpath2):
-
-        try:
-            item[item_argv] = info.xpath(xpath1).extract().strip()
-        except:
-            item[item_argv] = ''
-
-        return item[item_argv]
-
     def parse(self, response):
 
         item = LearningItem()
@@ -37,7 +27,19 @@ class CommicSpider(scrapy.Spider):
         #或者作者无链接——不会，会有search
         #单个作者也会用一组嵌套的span括住
         #翻译者的链接也是author，既然是爬取图书，就没有关系了，如果要研究翻译相关的话，主数据库有译者字段
+        def is_exist(item_argv,xpath1,**xpath2):
+            # item[item_argv] = info.xpath(xpath1).extract().strip()
+            try:
+                item[item_argv] = info.xpath(xpath1).extract()
+            except:
+                print(str(item_argv) + "出错")
+                item[item_argv] = ''
 
+            if len(item[item_argv]) == 1:
+
+                item[item_argv] = item[item_argv][0].strip()
+
+            return item[item_argv]
 
         
         info =  response.xpath(u'//*[@id="info"]')[0]
@@ -139,23 +141,23 @@ class CommicSpider(scrapy.Spider):
 
 #————————————————————————————————————————————————————————————————————————————————————————————————————————————————#
 
-        item["publish"] = is_exist("publish",).extract().strip()#这里空了
+        item["publish"] = is_exist("publish",u'//span[./text()="出版社:"]/following::text()[1]')#这里空了
 
-        item["publish_date"] = is_exist("publish_date",u'//span[./text()="出版年:"]/following::text()[1]').extract().strip()
-        item["pages"] = is_exist("pages",u'//span[./text()="页数:"]/following::text()[1]').extract().strip()
-        item["price"] = is_exist("price",u'//span[./text()="定价:"]/following::text()[1]').extract().strip()
-        item["binding"] = is_exist("binding",u'//span[./text()="装帧:"]/following::text()[1]').extract().strip()
-        item["ISBN"] = is_exist("ISBN",u'//span[./text()="ISBN:"]/following::text()[1]').extract().strip()
-        item["orgin_name"] = is_exist("orgin_name",u'//span[./text()="原作名:"]/following::text()[1]').extract().strip()
-        item["series"] = is_exist("series",u'//span[./text()="丛书:"]/following::a[1]/text()').extract().strip()
-        item["series_link"] = is_exist("series_link",u'//span[./text()="丛书:"]/following-sibling::a[1]/@href').extract().strip()
+        item["publish_date"] = is_exist("publish_date",u'//span[./text()="出版年:"]/following::text()[1]')
+        item["pages"] = is_exist("pages",u'//span[./text()="页数:"]/following::text()[1]')
+        item["price"] = is_exist("price",u'//span[./text()="定价:"]/following::text()[1]')
+        item["binding"] = is_exist("binding",u'//span[./text()="装帧:"]/following::text()[1]')
+        item["ISBN"] = is_exist("ISBN",u'//span[./text()="ISBN:"]/following::text()[1]')
+        item["orgin_name"] = is_exist("orgin_name",u'//span[./text()="原作名:"]/following::text()[1]')
+        item["series"] = is_exist("series",u'//span[./text()="丛书:"]/following::a[1]/text()')
+        item["series_link"] = is_exist("series_link",u'//span[./text()="丛书:"]/following-sibling::a[1]/@href')
 
-        # item["summary"] = is_exist("summary",).extract().strip()
-        # item["w_summary"] = is_exist("w_summary",).extract().strip()
+        # item["summary"] = is_exist("summary",)
+        # item["w_summary"] = is_exist("w_summary",)
 
-        # item["catalog"] = is_exist("catalog",'//*[contains(@id,"dir_")]/text()').extract().strip()
-        # item["tag"] = is_exist("tag",'//*[@id="db-tags-section"]/div/span/a/text()').extract().strip()
-        item["series_info"] = is_exist("series_info",'//*[@id="content"]/div/div[1]/div[3]/div[@class="subject_show block5"]/div//text()').extract().strip()
+        item["catalog"] = is_exist("catalog",'//*[contains(@id,"dir_")]/text()')
+        item["tag"] = is_exist("tag",'//*[@id="db-tags-section"]/div/span/a/text()')
+        item["series_info"] = is_exist("series_info",'//*[@id="content"]/div/div[1]/div[3]/div[@class="subject_show block5"]/div//text()')
         
         # item["readers"] = is_exist("readers",).extract().strip()
 
