@@ -106,9 +106,9 @@ class CommicSpider(scrapy.Spider):
 
 
         #有冒号无嵌套
-        t_name1 = info.xpath(u'//span[./text()="译者:"]/following-sibling::a')
+        t_name1 = info.xpath(u'//span[./text()="译者:"]/following-sibling::a[contains(@href,"search")]')
         #有冒号有嵌套
-        t_name2 = info.xpath(u'//span[./text()="译者:"]/parent::span/a')
+        t_name2 = info.xpath(u'//span[./text()="译者:"]/following-sibling::a[contains(@href,"author")]')
         #无冒号无嵌套
         #选中属性中包含某个字符串的href
         #链接可以直接爬取了，但是中文字段还是要靠后续的处理和提取
@@ -116,7 +116,7 @@ class CommicSpider(scrapy.Spider):
         #出错
         #仍有问题，无法替换和正确拼接
         # t_name3 = info.xpath(u'//span[./text()=" 译者"]/following-sibling::a[contains(@href,"search") or contains(@href,"author")]')
-        t_name3 = info.xpath(u'//span[./text()=" 译者"]/following-sibling::a[contains(@href,"author")]')
+        t_name3 = info.xpath(u'//span[./text()=" 译者"]/following-sibling::a[contains(@href,"search")]')
         #无冒号有嵌套
         t_name4 = info.xpath(u'//span[./text()=" 译者"]/following-sibling::a[contains(@href,"author")]')
 
@@ -349,6 +349,29 @@ class CommicSpider(scrapy.Spider):
         #         item['translator'] = b[0].xpath('./a/text()').extract()
         # except:
         #     item['translator'] = ''
+
+        #有效评分人数
+        v = int(item['readers'])
+        
+        #入选top250的最低人数
+        m = 10000
+
+        #书本得分
+        R = float(item['score'])
+
+
+
+
+
+
+
+
+        # C是所有书本的得分平均分，都存在数据库中，取个大概值就行了
+        C = 7
+
+        item["weighting"] = (v / (v + m)) * R + (m / (v + m)) * C
+
+        item['seen'] = 0
 
         yield item
 

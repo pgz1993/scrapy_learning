@@ -146,6 +146,33 @@ mysql的workbench和server,在server中指定my.cnf的时候会引发开启服�
 
 当提取特征不明显的内容时，xpath的轴可能有用
 
+9-5
+如果试图在一个内部函数里对外部作用域（不包括外部函数的外部作用域）的变量进行引用，内部函数就会被认为是闭包
+
+mysql access deny
+原因是root帐户默认不开放远程访问权限，所以需要修改一下相关权限。
+
+
+方案一 改密码：
+>grant usage on *.* to 你项目使用的user@localhost identified by'你的密码';
+>eg:grant usage on *.* to root@localhost identified by'password';
+>FLUSH PRIVILEGES;
+
+方案二：
+删除匿名账户
+SELECT User, Host from mysql.user WHERE Host = 'localhost' AND User = '';
+
+方案三：
+
+order of preference, my.cnf, $MYSQL_TCP_PORT,
+/etc/my.cnf /etc/mysql/my.cnf /usr/local/etc/my.cnf ~/.my.cnf
+/etc/my.cnf, /etc/mysql/my.cnf, /usr/local/etc/my.cnf, ~/.my.cnf 
+
+
+
+
+
+
 
 
 

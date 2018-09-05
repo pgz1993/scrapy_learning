@@ -91,6 +91,8 @@ ITEM_PIPELINES = {
     # 'scrapy.pipelines.images.ImagesPipeline': 1,
     # 'learning.pipelines.ImagesrenamePipeline':1,
     'learning.pipelines.StripPipeline':1,
+    # 'learning.pipelines.writeMysql': 2,
+
 
 }
 IMAGES_STORE = '/Users/hjx/Downloads/123'

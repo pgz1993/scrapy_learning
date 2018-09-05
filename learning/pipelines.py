@@ -15,6 +15,8 @@ from scrapy import Request
 #python2 parse独立，python3中被整合到urllib
 from urllib.parse import urlparse,unquote
 from os.path import basename, dirname, join
+import pymysql
+
 # from urllib.parse import unquote
 
 #MySQL
@@ -26,6 +28,32 @@ from os.path import basename, dirname, join
 #         self.arg = arg
         
 #     def process_item(self,item,spider):
+
+
+# class writeMysql(object):
+
+#     def __init__(self):
+#         self.client = pymysql.connect(
+#             host='127.0.0.1',
+#             port=3306,
+#             user='root',  #使用自己的用户名 
+#             passwd='123456',  # 使用自己的密码,如要共享代码，这里可以使用环境变量存储密码
+#             db='test',  # 数据库名
+#             charset='utf8'   
+#         )
+
+#         self.cur = self.client.cursor()
+
+
+#     def process_item(self,item,spider):
+
+#         sql = 'insert into game(img_url,name,update_time,update_word,author) VALUES (%s,%s,%s,%s,%s)'
+#         lis = (item['img_url'],item['name'],item['update_time'],item['update_word'],item['author'])
+#         self.cur.execute(sql,lis)
+#         self.client.commit()
+
+#         return item
+
 
         
 

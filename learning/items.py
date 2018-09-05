@@ -53,3 +53,5 @@ class LearningItem(scrapy.Item):
     readers = Field()
     series = Field()
     url = Field()
+    weighting = Field()
+    seen = Field()
