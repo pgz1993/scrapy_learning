@@ -351,26 +351,35 @@ class CommicSpider(scrapy.Spider):
         #     item['translator'] = ''
 
         #有效评分人数
-        v = int(item['readers'])
+        # if item['readers']:
+
+        #     v = int(item['readers'])
+
+        # else:
+        #     v = 0
+
         
-        #入选top250的最低人数
-        m = 10000
+        # #入选top250的最低人数
+        # m = 10000
 
-        #书本得分
-        R = float(item['score'])
-
-
-
-
-
+        # #书本得分
+        # if item['score']:
+        #     R = float(item['score'])
+        # else:
+        #     R = 0
 
 
 
-        # C是所有书本的得分平均分，都存在数据库中，取个大概值就行了
-        C = 7
 
-        item["weighting"] = (v / (v + m)) * R + (m / (v + m)) * C
 
+
+
+
+        # # C是所有书本的得分平均分，都存在数据库中，取个大概值就行了
+        # C = 7
+
+
+        item["weighting"] = 0
         item['seen'] = 0
 
         yield item
