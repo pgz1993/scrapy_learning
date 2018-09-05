@@ -17,6 +17,18 @@ from urllib.parse import urlparse,unquote
 from os.path import basename, dirname, join
 # from urllib.parse import unquote
 
+#MySQL
+
+# class MySQLPipeline(object):
+#     """docstring for MySQLPipeline"""
+#     def __init__(self, arg):
+#         super(MySQLPipeline, self).__init__()
+#         self.arg = arg
+        
+#     def process_item(self,item,spider):
+
+        
+
 
 class ImagesrenamePipeline(ImagesPipeline):
 
@@ -66,45 +78,71 @@ class StripPipeline(object):
         # 可选实现，做参数初始化等
         # doing something
 
+    def to_string(item_argv):
+
+        str_tmp = ''
+
+        if item[item_argv] is not None:
+
+            for i in item[item_argv]:
+                str_tmp +=  i.replace("\n","").replace(" ","") + "/"
+
+            item[item_argv] = str_tmp.strip("/")
+
+        return item[item_argv]
+
+
     def process_item(self, item, spider):
         # item (Item 对象) – 被爬取的item
         # spider (Spider 对象) – 爬取该item的spider
         # 这个方法必须实现，每个item pipeline组件都需要调用该方法，
         # 这个方法必须返回一个 Item 对象，被丢弃的item将不会被之后的pipeline组件所处理。
-        writers_to_string = ""
-        for i in range(len(item['writers'])):
-            writers_to_string += item['writers'][i].replace(" ","").replace("\n","") + "/"
-        item['writers'] = writers_to_string.strip("/")
 
-        translators_to_string = ""
+
+        item['writers'] = to_string('writers')
+        item["translators"] = to_string("translators")
+        item["summary"] = to_string("summary")
+        item["catalog"] = to_string("catalog")
+        item["tag"] = to_string("tag")
+        item["series_info"] = to_string("series_info")
+
+
+
+
+        # writers_to_string = ""
+        # for i in range(len(item['writers'])):
+        #     writers_to_string += item['writers'][i].replace(" ","").replace("\n","") + "/"
+        # item['writers'] = writers_to_string.strip("/")
+
+        # translators_to_string = ""
         
-        for i in range(len(item['translators'])):
-            translators_to_string += item['translators'][i] + "/"
-        item['translators'] = translators_to_string.strip("/")
+        # for i in range(len(item['translators'])):
+        #     translators_to_string += item['translators'][i] + "/"
+        # item['translators'] = translators_to_string.strip("/")
 
-        summary_to_string = ''
-        for i in range(len(item['summary'])):
-            summary_to_string += item['summary'][i] + "/"
+        # summary_to_string = ''
+        # for i in range(len(item['summary'])):
+        #     summary_to_string += item['summary'][i] + "/"
         
-        item['summary'] = summary_to_string.strip("/")
+        # item['summary'] = summary_to_string.strip("/")
 
-        # item['price'] = item['price'].replace("元","")
+        # # item['price'] = item['price'].replace("元","")
 
-        # item['catalog'] = item['catalog'][:-2]
-        catalog_to_string = ''
-        for i in range(len(item['catalog'])):
-            catalog_to_string += item['catalog'][i].replace(" ","").replace("\n","") + "/"
-        item['catalog'] = catalog_to_string.strip("/")
+        # # item['catalog'] = item['catalog'][:-2]
+        # catalog_to_string = ''
+        # for i in range(len(item['catalog'])):
+        #     catalog_to_string += item['catalog'][i].replace(" ","").replace("\n","") + "/"
+        # item['catalog'] = catalog_to_string.strip("/")
 
-        tag_to_string = ''
-        for i in range(len(item['tag'])):
-            tag_to_string += item['tag'][i] + "/"
-        item['tag'] = tag_to_string.strip("/")
+        # tag_to_string = ''
+        # for i in range(len(item['tag'])):
+        #     tag_to_string += item['tag'][i] + "/"
+        # item['tag'] = tag_to_string.strip("/")
 
-        series_info_to_string = ''
-        for i in range(len(item['series_info'])):
-            series_info_to_string += item['series_info'][i].replace('\n',"").replace("\u3000","") + "/"
+        # series_info_to_string = ''
+        # for i in range(len(item['series_info'])):
+        #     series_info_to_string += item['series_info'][i].replace('\n',"").replace("\u3000","") + "/"
 
-        item['series_info'] = series_info_to_string.strip("/")
+        # item['series_info'] = series_info_to_string.strip("/")
 
         return item
