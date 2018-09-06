@@ -91,12 +91,12 @@ ITEM_PIPELINES = {
     # 'scrapy.pipelines.images.ImagesPipeline': 1,
     # 'learning.pipelines.ImagesrenamePipeline':1,
     'learning.pipelines.StripPipeline':1,
-    # 'learning.pipelines.writeMysql': 2,
+    'learning.pipelines.writeMysql': 2,
 
 
 }
 IMAGES_STORE = '/Users/hjx/Downloads/123'
-DOWNLOAD_DELAY = 0
+DOWNLOAD_DELAY = 0.50
 #避免重复下载
 FILES_EXPIRES = 90
 # CLOSESPIDER_TIMEOUT = 82800 # 23小时后结束爬虫

@@ -39,6 +39,11 @@ class CommicSpider(scrapy.Spider):
 
                 item[item_argv] = item[item_argv][0].strip()
 
+            # if len(item[item_argv]) == 0 and item[item_argv] != '':
+            #
+            #     item[item_argv] = ''
+
+
             return item[item_argv]
 
         
@@ -90,8 +95,8 @@ class CommicSpider(scrapy.Spider):
             item['writers_link'] = w_name4.xpath("./@href").extract()
 
         else:
-            item['writers'] = []
-            item['writers_link'] = []
+            item['writers'] = ''
+            item['writers_link'] = ''
 
 
 
@@ -136,8 +141,8 @@ class CommicSpider(scrapy.Spider):
             item['translators'] = t_name1.xpath("./text()").extract()
             item['translators_link'] = t_name1.xpath("./@href").extract()
         else:
-            item['translators'] = []
-            item['translators_link'] = []
+            item['translators'] = ''
+            item['translators_link'] = ''
 
 #————————————————————————————————————————————————————————————————————————————————————————————————————————————————#
 
@@ -180,7 +185,7 @@ class CommicSpider(scrapy.Spider):
         try:
             item['score'] = response.css('#interest_sectl > div > div.rating_self.clearfix > strong::text').extract_first().strip()
         except:
-            item['score']
+            item['score'] = '0'
 
 
         # try:
@@ -222,6 +227,8 @@ class CommicSpider(scrapy.Spider):
         # except:
         #     item['series_link'] = ''
 
+        #这里有两种情况，一种有折叠，一种没有，先提取包含折叠内容的，没有再提取另一个
+
         try:
         
             summary = response.xpath('//*[@id="link-report"]/span/div/div[@class="intro"]/p/text()')
@@ -230,6 +237,10 @@ class CommicSpider(scrapy.Spider):
                 item['summary'] = summary.extract()
             else:
                 item['summary'] = response.xpath('//*[@id="link-report"]/div[1]/div/p/text()').extract()
+
+            # if len(item['summary']) == 0 and item['summary'] != '':
+            #
+            #     item['summary'] = ''
 
         except:
 
@@ -244,6 +255,10 @@ class CommicSpider(scrapy.Spider):
                 item['w_summary'] = w_summary.extract()
             else:
                 item['w_summary'] = response.css('#content > div > div.article > div.related_info > div:nth-child(4) > span.short > div > p::text').extract()
+
+            # if len(item['w_summary']) == 0 and item['w_summary'] != '':
+            #
+            #     item['w_summary'] = ''
         except:
             item['w_summary'] = ''
 

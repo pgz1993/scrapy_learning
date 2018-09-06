@@ -30,29 +30,39 @@ import pymysql
 #     def process_item(self,item,spider):
 
 
-# class writeMysql(object):
+class writeMysql(object):
 
-#     def __init__(self):
-#         self.client = pymysql.connect(
-#             host='127.0.0.1',
-#             port=3306,
-#             user='root',  #使用自己的用户名 
-#             passwd='123456',  # 使用自己的密码,如要共享代码，这里可以使用环境变量存储密码
-#             db='test',  # 数据库名
-#             charset='utf8'   
-#         )
+    def __init__(self):
+        self.client = pymysql.connect(
+            host='127.0.0.1',
+            port=3306,
+            user='root',  #使用自己的用户名
+            password='MyPass@123',  # 使用自己的密码,如要共享代码，这里可以使用环境变量存储密码
+            db='books',  # 数据库名
+            charset='utf8'   
+        )
 
-#         self.cur = self.client.cursor()
+        self.cur = self.client.cursor()
 
 
-#     def process_item(self,item,spider):
+    def process_item(self,item,spider):
 
-#         sql = 'insert into game(img_url,name,update_time,update_word,author) VALUES (%s,%s,%s,%s,%s)'
-#         lis = (item['img_url'],item['name'],item['update_time'],item['update_word'],item['author'])
-#         self.cur.execute(sql,lis)
-#         self.client.commit()
+        # sql = 'insert into game(img_url,name,update_time,update_word,author) VALUES (%s,%s,%s,%s,%s)'
 
-#         return item
+
+        sql = 'insert into douban(title,score,weighting,readers,writers,publish,orgin_name,translators,publish_date,pages,binding,ISBN,tag,series,url,seen,price,writers_link,translators_link,w_summary,series_info,catalog,summary,series_link) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+        # lis = (item['title'],item['score'],item['weighting'],item['readers'],item['writers'],item['publish'],item['orgin_name'],item['translators'],item['publish_date'],item['pages'],item['binding'],item['ISBN'],item['tag'],item['series'],item['url'],item['seen'],item['price'],item['writers_link'],item['translators_link'],item['w_summary'],item['series_info'],item['catalog'],item['summary'],item['series_link'])
+        lis = (
+        str(item['title']), str(item['score']), str(item['weighting']), str(item['readers']), str(item['writers']),
+        str(item['publish']), str(item['orgin_name']), str(item['translators']), str(item['publish_date']),
+        str(item['pages']), str(item['binding']), str(item['ISBN']), str(item['tag']), str(item['series']),
+        str(item['url']), str(item['seen']), str(item['price']), str(item['writers_link']),
+        str(item['translators_link']), str(item['w_summary']), str(item['series_info']), str(item['catalog']),
+        str(item['summary']), str(item['series_link']))
+        self.cur.execute(sql,lis)
+        self.client.commit()
+
+        return item
 
 
         
@@ -138,6 +148,7 @@ class StripPipeline(object):
         item["catalog"] = to_string("catalog")
         item["tag"] = to_string("tag")
         item["series_info"] = to_string("series_info")
+
 
         return item
 
