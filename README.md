@@ -169,6 +169,8 @@ order of preference, my.cnf, $MYSQL_TCP_PORT,
 /etc/my.cnf, /etc/mysql/my.cnf, /usr/local/etc/my.cnf, ~/.my.cnf 
 
 
+9-6
+如果目标页面被ban,考虑各大搜索引擎的cache
 
 
 

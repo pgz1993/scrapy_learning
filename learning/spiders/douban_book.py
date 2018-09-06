@@ -15,7 +15,13 @@ class CommicSpider(scrapy.Spider):
 
     start_urls = ["https://book.douban.com/subject/1083428"]
 
+    # print("爬虫开始")
+
     def parse(self, response):
+
+        print("有respose")
+
+
 
         item = LearningItem()
 
@@ -46,8 +52,18 @@ class CommicSpider(scrapy.Spider):
 
             return item[item_argv]
 
-        
-        info =  response.xpath(u'//*[@id="info"]')[0]
+        try:
+            # print("尝试爬取")
+            info =  response.xpath(u'//*[@id="info"]')[0]
+        except:
+            # print()
+            print("被ban!!!!!!!!!!!!!")
+
+            ##这里写ADSL拨号的逻辑
+            # print()
+            # return
+
+        print("此时的URL为：" + str(response.url))
         # writer_link_list = []
         # series_link_list = []
         
@@ -184,6 +200,8 @@ class CommicSpider(scrapy.Spider):
 
         try:
             item['score'] = response.css('#interest_sectl > div > div.rating_self.clearfix > strong::text').extract_first().strip()
+            if item['score'] == '':
+                item['score'] = '0'
         except:
             item['score'] = '0'
 
@@ -283,8 +301,11 @@ class CommicSpider(scrapy.Spider):
 
         try:
             item['readers'] = response.css('#interest_sectl > div > div.rating_self.clearfix > div > div.rating_sum > span > a > span::text').extract_first()
+
+            if item['readers'] is None:
+                item['readers'] = '0'
         except:
-            item['readers'] = ''
+            item['readers'] = '0'
 
 
 
@@ -438,5 +459,5 @@ class CommicSpider(scrapy.Spider):
         #
         for link in links:
             # print("弹出一个url")
-            yield scrapy.Request(url=link.url, callback=self.parse,dont_filter=False)
+            yield scrapy.Request(url=link.url, callback=self.parse,allow_redirects=True)
 
