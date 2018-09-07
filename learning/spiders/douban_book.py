@@ -2,11 +2,13 @@
 import scrapy
 from ..items import LearningItem
 from scrapy.linkextractor import  LinkExtractor
+import requests
 
 from scrapy.http import Request
 import jsbeautifier.unpackers.packer as packer
-
-#抽取标签后，翻到第50页失效，所以抽取标签页不可行
+from scrapy.downloadermiddlewares.retry import RetryMiddleware
+#抽取标签后，翻到第50页失效，所以抽取标签页不可行'
+#处理重定向和403，设置成adsl拨号,这里需要在中间件中设置
 
 
 class CommicSpider(scrapy.Spider):
@@ -19,7 +21,45 @@ class CommicSpider(scrapy.Spider):
 
     def parse(self, response):
 
-        print("有respose")
+        # def get_proxy():
+        #     return requests.get("http://127.0.0.1:5010/get/").content
+        #
+        # def delete_proxy(proxy):
+        #     requests.get("http://127.0.0.1:5010/delete/?proxy={}".format(proxy))
+
+
+        #或者可以设置随机ip
+        #不需要在这里设置，在retry中间件中设置即可
+        #轮询使用ip，假设有500可用ip,一分钟500个页面，对服务器来说相当于每台主机访问一页面
+
+
+        # while response.status == 403 or response.status == 302:
+        #
+        #     print(response.status)
+        #
+        #     print(response.meta)
+        #
+        #     # delete_proxy(response.headers)
+        #
+        #     #删除proxy
+        #
+        #     # 获取proxy
+        #
+        #     proxy = get_proxy()
+        #
+        #     print("使用新代理：" + str(proxy))
+        #
+        #     #如果proxy_pool耗尽，暂时暂停爬虫或者更换目标网站，移动端或者wap,或者各大网站的cache
+        #
+        #     response = scrapy.Request(url=response.url, meta={'proxy':'http://' + str(proxy)})
+        #
+        #     print(type(response))
+
+
+
+
+
+        # print("有respose")
 
 
 
@@ -53,15 +93,21 @@ class CommicSpider(scrapy.Spider):
             return item[item_argv]
 
         try:
+            #先确定豆瓣会出错的几种方式
+            #返回403
+            #返回200，但需登陆
+            #返回此应用出错
             # print("尝试爬取")
             info =  response.xpath(u'//*[@id="info"]')[0]
         except:
             # print()
             print("被ban!!!!!!!!!!!!!")
 
-            ##这里写ADSL拨号的逻辑
+            ##这里写ADSL拨号或者换ip的逻辑
             # print()
             # return
+
+
 
         print("此时的URL为：" + str(response.url))
         # writer_link_list = []
@@ -162,7 +208,7 @@ class CommicSpider(scrapy.Spider):
 
 #————————————————————————————————————————————————————————————————————————————————————————————————————————————————#
 
-        item["publish"] = is_exist("publish",u'//span[./text()="出版社:"]/following::text()[1]')#这里空了
+        item["publish"] = is_exist("publish",u'//span[./text()="出版社:"]/following::text()[1]')
 
         item["publish_date"] = is_exist("publish_date",u'//span[./text()="出版年:"]/following::text()[1]')
         item["pages"] = is_exist("pages",u'//span[./text()="页数:"]/following::text()[1]')
@@ -459,5 +505,5 @@ class CommicSpider(scrapy.Spider):
         #
         for link in links:
             # print("弹出一个url")
-            yield scrapy.Request(url=link.url, callback=self.parse,allow_redirects=True)
+            yield scrapy.Request(url=link.url, callback=self.parse)
 

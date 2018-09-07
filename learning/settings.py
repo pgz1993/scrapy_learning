@@ -52,9 +52,9 @@ ROBOTSTXT_OBEY = False
 
 # Enable or disable downloader middlewares
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    'learning.middlewares.LearningDownloaderMiddleware': 543,
-#}
+DOWNLOADER_MIDDLEWARES = {
+   'learning.middlewares.RandomProxyMiddleware': 543,
+}
 
 # Enable or disable extensions
 # See https://doc.scrapy.org/en/latest/topics/extensions.html
@@ -90,8 +90,8 @@ ROBOTSTXT_OBEY = False
 ITEM_PIPELINES = {
     # 'scrapy.pipelines.images.ImagesPipeline': 1,
     # 'learning.pipelines.ImagesrenamePipeline':1,
-    'learning.pipelines.StripPipeline':1,
-    'learning.pipelines.writeMysql': 2,
+    'learning.pipelines.StripPipeline':600,
+    'learning.pipelines.writeMysql': 700,
 
 
 }
@@ -138,3 +138,6 @@ DEFAULT_REQUEST_HEADERS = {
     # 'user-agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'
 }
 
+
+#设置可处理的状态码，默认列表为空
+HTTPERROR_ALLOWED_CODES = [403]

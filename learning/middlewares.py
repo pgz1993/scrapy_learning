@@ -6,6 +6,58 @@
 # https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
 from scrapy import signals
+import requests
+from scrapy.downloadermiddlewares.retry import RetryMiddleware
+
+
+# class retry(RetryMiddleware):
+#     pass
+
+
+
+
+class MyRetryMiddleware(RetryMiddleware):
+
+
+    def process_response(self, request, response, spider):
+
+        def get_proxy():
+            return requests.get("http://127.0.0.1:5010/get/").content
+
+        def delete_proxy(proxy):
+            requests.get("http://127.0.0.1:5010/delete/?proxy={}".format(proxy))
+
+        if response.status == 403:
+
+            reason = "403"
+
+            requests.meta['proxy'] = get_proxy()
+
+            return self._retry(request, reason, spider) or response
+
+        return response
+
+
+    #直接在api中修改代码验证，加上https或者http请求头
+
+
+
+
+
+
+
+
+class RandomProxyMiddleware(object):
+#重定义他的process_request方法：
+
+    def process_request(self, request, spider):
+        def get_proxy():
+            return requests.get("http://127.0.0.1:5010/get/").content
+
+        rand_proxy  = get_proxy()
+        if rand_proxy : ## 和访问豆瓣网成功，不成功就继续更换
+            request.meta['proxy'] = 'http://' + str(rand_proxy).replace('b','').replace("'","")
+            print(request.meta['proxy'])
 
 
 class LearningSpiderMiddleware(object):
