@@ -16,26 +16,40 @@ from scrapy.downloadermiddlewares.retry import RetryMiddleware
 
 
 
-class MyRetryMiddleware(RetryMiddleware):
-
-
-    def process_response(self, request, response, spider):
-
-        def get_proxy():
-            return requests.get("http://127.0.0.1:5010/get/").content
-
-        def delete_proxy(proxy):
-            requests.get("http://127.0.0.1:5010/delete/?proxy={}".format(proxy))
-
-        if response.status == 403:
-
-            reason = "403"
-
-            requests.meta['proxy'] = get_proxy()
-
-            return self._retry(request, reason, spider) or response
-
-        return response
+# class MyRetryMiddleware(RetryMiddleware):
+#
+#
+#     def process_response(self, request, response, spider):
+#
+#         def get_proxy():
+#             return requests.get("http://127.0.0.1:5010/get/").content
+#
+#         def delete_proxy(proxy):
+#             requests.get("http://127.0.0.1:5010/delete/?proxy={}".format(proxy))
+#
+#         if response.status == 403 or '检测到有异常' in response.text:
+#
+#             reason = "403"
+#
+#             proxy = get_proxy()
+#
+#             p1 = {"http":"http" + str(proxy).replace('b','').replace("'","")}
+#
+#             p2 = {"https":"https" + str(proxy).replace('b','').replace("'","")}
+#
+#             if requests.get("https://www.baidu.com",proxies = p1).status_code == 200:
+#                 proxy = p1
+#             else:
+#                 proxy = p2
+#
+#
+#
+#
+#             requests.meta['proxy'] = proxy
+#
+#             return self._retry(request, reason, spider) or response
+#
+#         return response
 
 
     #直接在api中修改代码验证，加上https或者http请求头

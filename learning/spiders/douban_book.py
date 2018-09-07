@@ -10,6 +10,8 @@ from scrapy.downloadermiddlewares.retry import RetryMiddleware
 #抽取标签后，翻到第50页失效，所以抽取标签页不可行'
 #处理重定向和403，设置成adsl拨号,这里需要在中间件中设置
 
+#豆瓣
+
 
 class CommicSpider(scrapy.Spider):
     name = 'book'
@@ -505,5 +507,8 @@ class CommicSpider(scrapy.Spider):
         #
         for link in links:
             # print("弹出一个url")
-            yield scrapy.Request(url=link.url, callback=self.parse)
+
+
+            #没有"/"作为结尾的话，网址会重定向，不必要，但是可能是识别爬虫的依据
+            yield scrapy.Request(url=link.url + "/", callback=self.parse)
 
