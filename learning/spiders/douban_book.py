@@ -25,6 +25,8 @@ class CommicSpider(scrapy.Spider):
 
         # def get_proxy():
         #     return requests.get("http://127.0.0.1:5010/get/").content
+
+
         #
         # def delete_proxy(proxy):
         #     requests.get("http://127.0.0.1:5010/delete/?proxy={}".format(proxy))
@@ -244,7 +246,7 @@ class CommicSpider(scrapy.Spider):
             item['title'] = ''
 
 
-        item['url'] = response.url
+        item['url'] = response.url.replace("https://book.douban.com/subject/","").strip('/')
 
         try:
             item['score'] = response.css('#interest_sectl > div > div.rating_self.clearfix > strong::text').extract_first().strip()
@@ -508,7 +510,10 @@ class CommicSpider(scrapy.Spider):
         for link in links:
             # print("弹出一个url")
 
-
+            # if link.url.endswith('/'):
+            #     pass
+            # else:
+                # link.url = link.url + "/"
             #没有"/"作为结尾的话，网址会重定向，不必要，但是可能是识别爬虫的依据
-            yield scrapy.Request(url=link.url + "/", callback=self.parse)
+            yield scrapy.Request(url=link.url, callback=self.parse)
 

@@ -3,9 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="a069d8b0-fe0c-4d0e-a979-629ee3dd9ca0" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/learning/001/requests.queue/active.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/learning/001/requests.queue/p0" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/learning/001/requests.seen" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/learning/001/spider.state" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/learning/middlewares.py" beforeDir="false" afterPath="$PROJECT_DIR$/learning/middlewares.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/learning/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/learning/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/learning/spiders/douban_book.py" beforeDir="false" afterPath="$PROJECT_DIR$/learning/spiders/douban_book.py" afterDir="false" />
@@ -28,8 +27,8 @@
       <file leaf-file-name="douban_book.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/learning/spiders/douban_book.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1785">
-              <caret line="126" selection-start-line="126" selection-end-line="126" />
+            <state relative-caret-position="-3403">
+              <caret line="248" column="79" selection-start-line="248" selection-start-column="79" selection-end-line="248" selection-end-column="79" />
               <folding>
                 <element signature="e#24#37#0" expanded="true" />
               </folding>
@@ -37,11 +36,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="middlewares.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="middlewares.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/learning/middlewares.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="735">
-              <caret line="51" column="23" selection-start-line="51" selection-start-column="23" selection-end-line="51" selection-end-column="23" />
+            <state relative-caret-position="242">
+              <caret line="66" column="25" selection-start-line="66" selection-start-column="25" selection-end-line="66" selection-end-column="25" />
               <folding>
                 <element signature="e#169#195#0" expanded="true" />
               </folding>
@@ -49,11 +48,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/learning/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="134" column="17" selection-start-line="134" selection-start-column="17" selection-end-line="134" selection-end-column="141" />
+            <state relative-caret-position="336">
+              <caret line="130" column="4" selection-start-line="130" selection-start-column="4" selection-end-line="130" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -73,7 +72,7 @@
       <file leaf-file-name="pipelines.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/learning/pipelines.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="825">
+            <state relative-caret-position="626">
               <caret line="60" column="55" selection-start-line="60" selection-start-column="55" selection-end-line="60" selection-end-column="55" />
               <folding>
                 <element signature="e#297#347#0" expanded="true" />
@@ -107,6 +106,7 @@
       <find>readers</find>
       <find>retry_http_codes</find>
       <find>middle</find>
+      <find>url</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -133,8 +133,8 @@
         <option value="$PROJECT_DIR$/learning/pipelines.py" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/learning/spiders/douban_book.py" />
-        <option value="$PROJECT_DIR$/learning/middlewares.py" />
         <option value="$PROJECT_DIR$/learning/settings.py" />
+        <option value="$PROJECT_DIR$/learning/middlewares.py" />
       </list>
     </option>
   </component>
@@ -147,10 +147,9 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="y" value="23" />
-    <option name="width" value="1440" />
-    <option name="height" value="800" />
+  <component name="ProjectFrameBounds" fullScreen="true">
+    <option name="width" value="568" />
+    <option name="height" value="900" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -168,6 +167,19 @@
               <item name="scrapy_learning" type="b2602c69:ProjectViewProjectNode" />
               <item name="scrapy_learning" type="462c0819:PsiDirectoryNode" />
               <item name="learning" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="scrapy_learning" type="b2602c69:ProjectViewProjectNode" />
+              <item name="scrapy_learning" type="462c0819:PsiDirectoryNode" />
+              <item name="learning" type="462c0819:PsiDirectoryNode" />
+              <item name="001" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="scrapy_learning" type="b2602c69:ProjectViewProjectNode" />
+              <item name="scrapy_learning" type="462c0819:PsiDirectoryNode" />
+              <item name="learning" type="462c0819:PsiDirectoryNode" />
+              <item name="001" type="462c0819:PsiDirectoryNode" />
+              <item name="requests.queue" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -311,7 +323,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="800" extended-state="0" />
+    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -321,7 +333,7 @@
       <window_info anchor="bottom" id="Python Console" order="7" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.38406828" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.11319444" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.110416666" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="right" id="SciView" order="3" />
@@ -340,24 +352,24 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32969698" />
-      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Python Console" order="10" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" id="Database" order="4" />
       <window_info anchor="bottom" id="Terminal" order="11" />
       <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="right" id="SciView" order="3" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Python Console" order="10" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info id="Favorites" order="2" side_tool="true" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -679,16 +691,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/learning/pipelines.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="825">
-          <caret line="60" column="55" selection-start-line="60" selection-start-column="55" selection-end-line="60" selection-end-column="55" />
-          <folding>
-            <element signature="e#297#347#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/learning/items.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="510">
@@ -699,25 +701,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/learning/001/requests.seen">
+    <entry file="file://$PROJECT_DIR$/learning/pipelines.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-70452" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/learning/middlewares.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="735">
-          <caret line="51" column="23" selection-start-line="51" selection-start-column="23" selection-end-line="51" selection-end-column="23" />
+        <state relative-caret-position="626">
+          <caret line="60" column="55" selection-start-line="60" selection-start-column="55" selection-end-line="60" selection-end-column="55" />
           <folding>
-            <element signature="e#169#195#0" expanded="true" />
+            <element signature="e#297#347#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/learning/001/requests.seen">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/learning/spiders/douban_book.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1785">
-          <caret line="126" selection-start-line="126" selection-end-line="126" />
+        <state relative-caret-position="-3403">
+          <caret line="248" column="79" selection-start-line="248" selection-start-column="79" selection-end-line="248" selection-end-column="79" />
           <folding>
             <element signature="e#24#37#0" expanded="true" />
           </folding>
@@ -726,8 +726,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/learning/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="134" column="17" selection-start-line="134" selection-start-column="17" selection-end-line="134" selection-end-column="141" />
+        <state relative-caret-position="336">
+          <caret line="130" column="4" selection-start-line="130" selection-start-column="4" selection-end-line="130" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/learning/middlewares.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="66" column="25" selection-start-line="66" selection-start-column="25" selection-end-line="66" selection-end-column="25" />
+          <folding>
+            <element signature="e#169#195#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

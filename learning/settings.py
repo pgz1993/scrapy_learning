@@ -58,9 +58,10 @@ ROBOTSTXT_OBEY = False
 
 
 
-DOWNLOADER_MIDDLEWARES = {
-   'learning.middlewares.RandomProxyMiddleware': 543,
-}
+# DOWNLOADER_MIDDLEWARES = {
+#    # 'learning.middlewares.RandomProxyMiddleware': 543,
+#     'learning.middlewares.MyRetryMiddleware':543
+# }
 
 
 
@@ -119,20 +120,24 @@ CONCURRENT_REQUESTS_PER_DOMAIN = 16
 
 CONCURRENT_REQUESTS_PER_IP = 16
 
-#禁用cookies
+# 禁用cookies
 COOKIES_ENABLED = False
 
 
 DEFAULT_REQUEST_HEADERS = {
     "method": " GET",
     # "path":" /b/%E4%B8%8D%E4%B9%89%E8%81%94%E7%9B%9F%20%E4%BA%BA%E9%97%B4%E4%B9%8B%E7%A5%9E/%E7%AC%AC01%E8%AF%9D_1358691366/02.jpg",
-    "scheme": " https",
-    "accept":" image/webp,image/apng,image/*,*/*;q=0.8",
-    "accept-encoding": " gzip, deflate, br",
-    "accept-language":" zh-CN,zh;q=0.9,en;q=0.8,zh-TW;q=0.7",
-    "cookie": " show_tip_1=0",
+    # "scheme": " https",
+    # "accept":" image/webp,image/apng,image/*,*/*;q=0.8",
+    # "accept-encoding": " gzip, deflate, br",
+    # "accept-language":" zh-CN,zh;q=0.9,en;q=0.8,zh-TW;q=0.7",
+    # "cookie": " show_tip_1=0",
     # "referer":" https://manhua.dmzj.com/buyilianmen/22505.shtml",
-    "user-agent":" Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36"
+    "user-agent":" Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36",
+    "Host": "book.douban.com",
+    "Connection": "keep-alive"
+    # "Cookie":'ll="118281"; bid=-1wLTXyZW3g; gr_user_id=22955691-b271-49ec-9291-445cf5712e0d; gr_session_id_22c937bbd8ebd703f2d8e9445f7dfd03=1207c881-c002-4dd2-9453-4e668474cb84; gr_cs1_1207c881-c002-4dd2-9453-4e668474cb84=user_id%3A0; gr_session_id_22c937bbd8ebd703f2d8e9445f7dfd03_1207c881-c002-4dd2-9453-4e668474cb84=true; viewed="30187217"'
+
 
     # USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36"
 
@@ -151,4 +156,6 @@ DEFAULT_REQUEST_HEADERS = {
 
 
 #设置可处理的状态码，默认列表为空
-HTTPERROR_ALLOWED_CODES = [403]
+# HTTPERROR_ALLOWED_CODES = [403,302]
+# RETRY_ENABLED = True
+# RETRY_TIMES = 5

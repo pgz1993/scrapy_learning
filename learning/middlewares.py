@@ -16,40 +16,64 @@ from scrapy.downloadermiddlewares.retry import RetryMiddleware
 
 
 
-# class MyRetryMiddleware(RetryMiddleware):
-#
-#
-#     def process_response(self, request, response, spider):
-#
-#         def get_proxy():
-#             return requests.get("http://127.0.0.1:5010/get/").content
-#
-#         def delete_proxy(proxy):
-#             requests.get("http://127.0.0.1:5010/delete/?proxy={}".format(proxy))
-#
-#         if response.status == 403 or '检测到有异常' in response.text:
-#
-#             reason = "403"
-#
-#             proxy = get_proxy()
-#
-#             p1 = {"http":"http" + str(proxy).replace('b','').replace("'","")}
-#
-#             p2 = {"https":"https" + str(proxy).replace('b','').replace("'","")}
-#
-#             if requests.get("https://www.baidu.com",proxies = p1).status_code == 200:
-#                 proxy = p1
-#             else:
-#                 proxy = p2
-#
-#
-#
-#
-#             requests.meta['proxy'] = proxy
-#
-#             return self._retry(request, reason, spider) or response
-#
-#         return response
+class MyRetryMiddleware(RetryMiddleware):
+
+
+    def process_response(self, request, response, spider):
+
+        # print("进入retry")
+
+        def get_proxy():
+            return requests.get("http://127.0.0.1:5010/get/").content
+
+        def delete_proxy(proxy):
+            requests.get("http://127.0.0.1:5010/delete/?proxy={}".format(proxy))
+
+        if response.status == 403 or response.status == 302 or '检测到有异常' in response.text:
+
+            # print("进入retry 的 if")
+            #
+            # reason = "403"
+            #
+            # proxy = ''
+            #
+            # while proxy == '':
+            #
+            #     proxy = get_proxy()
+            #     t_proxy = proxy
+            #
+            #     p1 = {"http":"http" + str(proxy).replace('b','').replace("'","")}
+            #
+            #     p2 = {"https":"https" + str(proxy).replace('b','').replace("'","")}
+            #
+            #
+            #     try:
+            #         a = requests.get("https://book.douban.com", proxies=p1)
+            #         if a.status_code == 200 and "检测到有异常请求" not in a.text:
+            #             proxy = p1
+            #     except:
+            #
+            #         try:
+            #             a = requests.get("https://book.douban.com", proxies=p2)
+            #             if a.status_code == 200 and "检测到有异常请求" not in a.text:
+            #                 proxy = p2
+            #         except:
+            #             pass
+            #
+            #     else:
+            #         proxy = ''
+
+
+            reason = "403"
+            proxy = {"http":"http" + str(get_proxy()).replace('b','').replace("'","")}
+            request.meta['proxy'] = proxy
+
+            # request.meta['proxy'] = "http://{}:{}@{}:{}".format('','', '127.0.0.1', '8118')
+
+
+            return self._retry(request, reason, spider) or response
+
+        return response
 
 
     #直接在api中修改代码验证，加上https或者http请求头
