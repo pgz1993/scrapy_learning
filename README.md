@@ -172,6 +172,14 @@ order of preference, my.cnf, $MYSQL_TCP_PORT,
 9-6
 如果目标页面被ban,考虑各大搜索引擎的cache
 
+9-9
+下载和分析处理要分开
+使用gzip
+dns 本地服务器，预热要用的 dns 地址
+加强 recv timeout 的智能判断，在服务器响应不佳的情况下，减少链接数目，让服务器退回服务质量。
+将网页下载到本地，当有需求变更的时候可以查询本地的页面
+增加timestamp
+
 
 
 

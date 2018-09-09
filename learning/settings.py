@@ -58,10 +58,10 @@ ROBOTSTXT_OBEY = False
 
 
 
-# DOWNLOADER_MIDDLEWARES = {
+DOWNLOADER_MIDDLEWARES = {
 #    # 'learning.middlewares.RandomProxyMiddleware': 543,
 #     'learning.middlewares.MyRetryMiddleware':543
-# }
+}
 
 
 
@@ -104,21 +104,19 @@ ITEM_PIPELINES = {
     # 'learning.pipelines.ImagesrenamePipeline':1,
     'learning.pipelines.StripPipeline':600,
     'learning.pipelines.writeMysql': 700,
-
-
 }
 IMAGES_STORE = '/Users/hjx/Downloads/123'
-DOWNLOAD_DELAY = 0.50
+DOWNLOAD_DELAY = 0
 #避免重复下载
-FILES_EXPIRES = 90
+# FILES_EXPIRES = 90
 # CLOSESPIDER_TIMEOUT = 82800 # 23小时后结束爬虫
 
 #多线程
-CONCURRENT_REQUESTS = 16
+CONCURRENT_REQUESTS = 100
 
-CONCURRENT_REQUESTS_PER_DOMAIN = 16
+CONCURRENT_REQUESTS_PER_DOMAIN = 100
 
-CONCURRENT_REQUESTS_PER_IP = 16
+CONCURRENT_REQUESTS_PER_IP = 100
 
 # 禁用cookies
 COOKIES_ENABLED = False
