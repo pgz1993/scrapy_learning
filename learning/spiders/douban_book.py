@@ -98,17 +98,20 @@ class CommicSpider(scrapy.Spider):
 
             return item[item_argv]
 
-        try:
+        # try:
             #先确定豆瓣会出错的几种方式
             #返回403
             #返回200，但需登陆
             #返回此应用出错
             # print("尝试爬取")
-            info =  response.xpath(u'//*[@id="info"]')[0]
-        except:
+
+        # except:
             # print()
-            print("被ban!!!!!!!!!!!!!")
+            # print("被ban!!!!!!!!!!!!!")
             #只会停止其中一个协程，其他要逐渐停止，强行ctrl + z 会导致后面的链接被添加到filter中，以后都不会再被爬取
+        if response.status != 200:
+            #不知道会不会将缺少 '/"的页面重定向到别的地方，导致状态码变为301，改next_page的代码
+
             raise CloseSpider('强制停止')
             # time.sleep(600)
             # raise CloseSpider()
@@ -122,7 +125,10 @@ class CommicSpider(scrapy.Spider):
         print("此时的URL为：" + str(response.url))
         # writer_link_list = []
         # series_link_list = []
-        
+        try:
+            info = response.xpath(u'//*[@id="info"]')[0]
+        except:
+            raise  CloseSpider("出现200以外的错误，此时的url为 %s" % response.url)
 
             #在这里一并处理了作者列表和翻译者列表
 
@@ -522,10 +528,10 @@ class CommicSpider(scrapy.Spider):
         for link in links:
             # print("弹出一个url")
 
-            # if link.url.endswith('/'):
-            #     pass
-            # else:
-                # link.url = link.url + "/"
+            if link.url.endswith('/'):
+                pass
+            else:
+                link.url = link.url + "/"
             #没有"/"作为结尾的话，网址会重定向，不必要，但是可能是识别爬虫的依据
             yield scrapy.Request(url=link.url, callback=self.parse)
             # yield scrapy.Request(url=link.url, callback=self.parse,dont_filter=True)

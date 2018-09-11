@@ -1,4 +1,4 @@
-# set editor
+# editor
 
 ##1.vim ~/.bash_profile
 
@@ -13,3 +13,7 @@
 ##6.scrapy edit spider_name
 
 ##7.Done
+
+# fetch
+
+## used to “see” how your spider would fetch a certain page
