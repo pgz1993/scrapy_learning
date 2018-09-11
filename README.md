@@ -191,6 +191,33 @@ ajax
 
 先全部设置成text，1万条50M,一亿480G,然后再优化存储，以防出现字段长度溢出，截断影响数据的完整性
 
+9-11
+
+Mac系统的环境变量，加载顺序为： 
+a. /etc/profile 
+b. /etc/paths 
+c. ~/.bash_profile 
+d. ~/.bash_login 
+e. ~/.profile 
+f. ~/.bashrc 
+其中a和b是系统级别的，系统启动就会加载，其余是用户接别的。c,d,e按照从前往后的顺序读取，如果c文件存在，则后面的几个文件就会被忽略不读了，以此类推。~/.bashrc没有上述规则，它是bash shell打开的时候载入的。这里建议在c中添加环境变量，以下也是以在c中添加环境变量来演示的。
+
+# set editor
+
+##1.vim ~/.bash_profile
+##2.append the IDLE PATH at end of file:export EDITOR=/Applications/PyCharm.app/Contents/MacOS/pycharm
+##3.:wq
+##4.source ~/.bash_profile
+##5.cd to the spiderpath
+##5.scrapy edit spider_name
+##6.Done
+
+
+
+
+
+
+
 
 
 

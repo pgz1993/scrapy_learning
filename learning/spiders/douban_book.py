@@ -512,7 +512,13 @@ class CommicSpider(scrapy.Spider):
         #抽取"喜欢这本书的用户也喜欢"的链接
         link = LinkExtractor(restrict_xpaths=('//*[@id="db-rec-section"]/div//dl//dd'))
         links = link.extract_links(response)
-        #
+
+        #如果链接是直接相关的话，也可以用response.follow，会返回一个url实例，然后可以yield相关的url：
+        # links = response.xpath('//*[@id="db-rec-section"]/div//dl//dd').extract()
+
+        # for link in links:
+        #     yield response.follow(link,callback=self.parse)
+
         for link in links:
             # print("弹出一个url")
 
