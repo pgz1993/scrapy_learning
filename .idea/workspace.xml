@@ -4,12 +4,12 @@
     <list default="true" id="a069d8b0-fe0c-4d0e-a979-629ee3dd9ca0" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/learning/001/requests.queue/active.json" beforeDir="false" afterPath="$PROJECT_DIR$/learning/001/requests.queue/active.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/learning/001/requests.queue/p-18" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/learning/001/requests.queue/p-20" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/learning/001/requests.queue/p-24" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/learning/001/requests.queue/p-26" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/learning/001/requests.queue/p-28" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/learning/001/requests.queue/p0" beforeDir="false" afterPath="$PROJECT_DIR$/learning/001/requests.queue/p0" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/learning/001/requests.queue/p1" beforeDir="false" afterPath="$PROJECT_DIR$/learning/001/requests.queue/p1" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/learning/001/requests.seen" beforeDir="false" afterPath="$PROJECT_DIR$/learning/001/requests.seen" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/learning/spiders/douban_book.py" beforeDir="false" afterPath="$PROJECT_DIR$/learning/spiders/douban_book.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/notes.md" beforeDir="false" afterPath="$PROJECT_DIR$/notes.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -57,8 +57,8 @@
       <file leaf-file-name="douban_book.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/learning/spiders/douban_book.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="302">
-              <caret line="514" column="25" selection-start-line="514" selection-start-column="25" selection-end-line="514" selection-end-column="25" />
+            <state relative-caret-position="293">
+              <caret line="111" column="25" selection-start-line="111" selection-start-column="25" selection-end-line="111" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -93,8 +93,8 @@
       <file leaf-file-name="notes.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/notes.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="30" column="2" selection-start-line="30" selection-start-column="2" selection-end-line="30" selection-end-column="2" />
+            <state relative-caret-position="770">
+              <caret line="74" selection-start-line="74" selection-end-line="74" />
             </state>
           </provider>
         </entry>
@@ -167,8 +167,8 @@
         <option value="$PROJECT_DIR$/learning/eee.js" />
         <option value="$PROJECT_DIR$/learning/eee.html" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/notes.md" />
         <option value="$PROJECT_DIR$/learning/spiders/douban_book.py" />
+        <option value="$PROJECT_DIR$/notes.md" />
       </list>
     </option>
   </component>
@@ -369,7 +369,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Python Console" order="10" />
       <window_info anchor="bottom" id="Terminal" order="11" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2951389" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15763889" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="4" />
       <window_info anchor="right" id="SciView" order="3" />
@@ -674,13 +674,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/notes.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="30" column="2" selection-start-line="30" selection-start-column="2" selection-end-line="30" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/learning/spiders/douban_book_local.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -716,10 +709,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/notes.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="770">
+          <caret line="74" selection-start-line="74" selection-end-line="74" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/learning/spiders/douban_book.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="302">
-          <caret line="514" column="25" selection-start-line="514" selection-start-column="25" selection-end-line="514" selection-end-column="25" />
+        <state relative-caret-position="293">
+          <caret line="111" column="25" selection-start-line="111" selection-start-column="25" selection-end-line="111" selection-end-column="25" />
         </state>
       </provider>
     </entry>

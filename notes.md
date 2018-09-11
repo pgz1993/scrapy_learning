@@ -28,5 +28,48 @@
 
 # parse
 
-##
+##call function parse()
+
+# settings
+
+##  scrapy settings --get BOT_NAME
+
+# runspider
+
+## Run a spider self-contained in a Python file, without having to create a project
+
+# bench
+
+## Run a quick benchmark,it tells how slow the spider I had write
+
+# Register commands via setup.py entry points
+
+## experimental feature
+
+# class scrapy.spiders.Spider
+
+## just provides a default start_requests() implementation which sends requests from the start_urlsspider attribute and calls the spider’s method parse for each of the resulting responses
+
+# custom_settings
+
+## A dictionary of settings that will be overridden from the project
+
+#  Spider arguments
+
+## scrapy crawl myspider -a category=electronics
+
+# SitemapSpider
+
+## Awaful!!!!!!!
+
+# Scrapy selectors are instances of Selector class constructed by passing text or TextResponse object
+
+# xpath It returns None if no element was found:
+
+# .extract_first(default='not-found
+
+# The selection methods (.xpath() or .css()) return a list of selectors of the same type, so you can call the selectionmethods for those selectors too.
+
+# Using selectors with regular expressions
+
 
