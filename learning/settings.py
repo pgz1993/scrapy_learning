@@ -59,6 +59,7 @@ ROBOTSTXT_OBEY = False
 
 
 DOWNLOADER_MIDDLEWARES = {
+    # 'scrapy.contrib.downloadermiddleware.httpcache.HttpCacheMiddleware': 300,
 #    # 'learning.middlewares.RandomProxyMiddleware': 543,
 #     'learning.middlewares.MyRetryMiddleware':543
 }
@@ -92,11 +93,14 @@ DOWNLOADER_MIDDLEWARES = {
 
 # Enable and configure HTTP caching (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html#httpcache-middleware-settings
-#HTTPCACHE_ENABLED = True
-#HTTPCACHE_EXPIRATION_SECS = 0
-#HTTPCACHE_DIR = 'httpcache'
-#HTTPCACHE_IGNORE_HTTP_CODES = []
-#HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+# HTTPCACHE_ENABLED = True
+# HTTPCACHE_EXPIRATION_SECS = 0
+# HTTPCACHE_DIR = 'httpcache'
+# HTTPCACHE_IGNORE_HTTP_CODES = [403,302,301]
+# HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+# HTTPCACHE_IGNORE_MISSING = True
+# HTTPCACHE_POLICY = 'scrapy.contrib.httpcache.DummyPolicy'
+
 
 
 ITEM_PIPELINES = {
@@ -128,6 +132,7 @@ DEFAULT_REQUEST_HEADERS = {
     # "scheme": " https",
     # "accept":" image/webp,image/apng,image/*,*/*;q=0.8",
     # "accept-encoding": " gzip, deflate, br",
+    "accept-encoding": " gzip",
     # "accept-language":" zh-CN,zh;q=0.9,en;q=0.8,zh-TW;q=0.7",
     # "cookie": " show_tip_1=0",
     # "referer":" https://manhua.dmzj.com/buyilianmen/22505.shtml",
@@ -151,6 +156,9 @@ DEFAULT_REQUEST_HEADERS = {
     # 'referer':'https://manhua.dmzj.com/buyilianmen/22505.shtml',
     # 'user-agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'
 }
+
+
+# HTTPCACHE_ENABLED
 
 
 #设置可处理的状态码，默认列表为空
