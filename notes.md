@@ -17,3 +17,16 @@
 # fetch
 
 ## used to “see” how your spider would fetch a certain page
+
+# view
+
+##  be used to check what the spider “sees” and confirm it’s what you expect
+
+# shell
+
+## -c 'response.status'
+
+# parse
+
+##
+

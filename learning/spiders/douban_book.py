@@ -111,8 +111,8 @@ class CommicSpider(scrapy.Spider):
             #只会停止其中一个协程，其他要逐渐停止，强行ctrl + z 会导致后面的链接被添加到filter中，以后都不会再被爬取
         if response.status != 200:
             #不知道会不会将缺少 '/"的页面重定向到别的地方，导致状态码变为301，改next_page的代码
-
-            raise CloseSpider('强制停止')
+            #shell后发现不会，重定向会直接返回200的response,服务器补全了后面的 /
+            raise CloseSpider('强制停止!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
             # time.sleep(600)
             # raise CloseSpider()
             # return
@@ -512,6 +512,8 @@ class CommicSpider(scrapy.Spider):
         # all = response.xpath(u'//span[./text()=" 作者"]/following::text()')
         # print(all)
 
+        #mysql批量写入，不要每次写入
+
 
 
         #
@@ -528,10 +530,10 @@ class CommicSpider(scrapy.Spider):
         for link in links:
             # print("弹出一个url")
 
-            if link.url.endswith('/'):
-                pass
-            else:
-                link.url = link.url + "/"
+            # if link.url.endswith('/'):
+                # pass
+            # else:
+                # link.url = link.url + "/"
             #没有"/"作为结尾的话，网址会重定向，不必要，但是可能是识别爬虫的依据
             yield scrapy.Request(url=link.url, callback=self.parse)
             # yield scrapy.Request(url=link.url, callback=self.parse,dont_filter=True)
