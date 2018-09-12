@@ -95,6 +95,8 @@ class CommicSpider(scrapy.Spider):
             #
             #     item[item_argv] = ''
 
+            # return item[item_argv][0].strip() if len(item[item_argv]) == 1 else item[item_argv]
+
 
             return item[item_argv]
 
@@ -110,6 +112,7 @@ class CommicSpider(scrapy.Spider):
             # print("被ban!!!!!!!!!!!!!")
             #只会停止其中一个协程，其他要逐渐停止，强行ctrl + z 会导致后面的链接被添加到filter中，以后都不会再被爬取
         if response.status != 200:
+
             #不知道会不会将缺少 '/"的页面重定向到别的地方，导致状态码变为301，改next_page的代码
             #shell后发现不会，重定向会直接返回200的response,服务器补全了后面的 /
             raise CloseSpider('强制停止!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
