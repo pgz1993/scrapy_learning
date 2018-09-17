@@ -14,3 +14,16 @@
 >代码不依赖第三方包时，手写代码（更能体会编程语言本身的特性）。
 >预先写伪代码。简单的代码看不出伪代码的好处，但是如果项目复杂，提前写好伪代码，能避免很多坑。
 >最后，手写代码对面试帮助非常大。
+
+
+# pycharm document
+
+> pip list --outdated
+
+> pip install --upgrade SomePackage
+
+# 升级所有可用的包
+> pip freeze --local | grep -v '^-e' | cut -d = -f 1  | xargs -n1 pip install -U
+
+#切换源
+> vim ~/.pip/pip.conf

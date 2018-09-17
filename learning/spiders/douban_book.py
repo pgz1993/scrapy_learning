@@ -3,6 +3,7 @@ import scrapy
 from ..items import LearningItem
 from scrapy.linkextractor import  LinkExtractor
 from scrapy.exceptions import CloseSpider
+
 import requests
 
 from scrapy.http import Request
