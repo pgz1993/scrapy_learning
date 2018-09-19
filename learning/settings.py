@@ -116,11 +116,11 @@ DOWNLOAD_DELAY = 0
 # CLOSESPIDER_TIMEOUT = 82800 # 23小时后结束爬虫
 
 #多线程
-CONCURRENT_REQUESTS = 100
+CONCURRENT_REQUESTS = 16
 
-CONCURRENT_REQUESTS_PER_DOMAIN = 100
+CONCURRENT_REQUESTS_PER_DOMAIN = 16
 
-CONCURRENT_REQUESTS_PER_IP = 100
+CONCURRENT_REQUESTS_PER_IP = 16
 
 # 禁用cookies
 COOKIES_ENABLED = False
@@ -137,6 +137,8 @@ DEFAULT_REQUEST_HEADERS = {
     # "cookie": " show_tip_1=0",
     # "referer":" https://manhua.dmzj.com/buyilianmen/22505.shtml",
     "user-agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36",
+    ## 百度爬虫ua需要相应的ip来配合
+    # "user-agent":"Mozilla/5.0 (compatible; Baiduspider/2.0;+http://www.baidu.com/search/spider.html)",
     "Host": "book.douban.com",
     "Connection": "keep-alive"
     # "Cookie":'ll="118281"; bid=-1wLTXyZW3g; gr_user_id=22955691-b271-49ec-9291-445cf5712e0d; gr_session_id_22c937bbd8ebd703f2d8e9445f7dfd03=1207c881-c002-4dd2-9453-4e668474cb84; gr_cs1_1207c881-c002-4dd2-9453-4e668474cb84=user_id%3A0; gr_session_id_22c937bbd8ebd703f2d8e9445f7dfd03_1207c881-c002-4dd2-9453-4e668474cb84=true; viewed="30187217"'
@@ -164,4 +166,5 @@ DEFAULT_REQUEST_HEADERS = {
 #设置可处理的状态码，默认列表为空
 HTTPERROR_ALLOWED_CODES = [403,301,302,303,304,305,306,307,400]
 # RETRY_ENABLED = True
+# DNSCACHE_ENABLED = True
 # RETRY_TIMES = 5

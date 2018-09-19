@@ -132,7 +132,7 @@ class CommicSpider(scrapy.Spider):
         try:
             info = response.xpath(u'//*[@id="info"]')[0]
         except:
-            raise  CloseSpider("出现200以外的错误，此时的url为 %s" % response.url)
+            raise CloseSpider("出现200以外的错误，此时的url为 %s" % response.url)
 
             #在这里一并处理了作者列表和翻译者列表
 

@@ -203,6 +203,15 @@ f. ~/.bashrc
 其中a和b是系统级别的，系统启动就会加载，其余是用户接别的。c,d,e按照从前往后的顺序读取，如果c文件存在，则后面的几个文件就会被忽略不读了，以此类推。~/.bashrc没有上述规则，它是bash shell打开的时候载入的。这里建议在c中添加环境变量，以下也是以在c中添加环境变量来演示的。
 
 
+今日头条有多个js文件，每次访问会随机得到其中一个，需要判断
+
+Headless Chrome是无头Chrome浏览器，可以利用Chrome V8引擎的高效。
+可以代替phantomjs，Scrapy也不建议使用phantomjs了。
+启用无头Chrome，必须使用Chrome对应版本的WebDriver。
+
+
+
+
 
 
 
