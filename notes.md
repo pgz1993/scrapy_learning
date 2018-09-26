@@ -74,6 +74,84 @@
 
 # DNSCACHE_ENABLED
 
-#
+# browser = webdriver.Chrome() 声明浏览器对象
+
+# browser.get(url) 访问页面
+
+# browser.page_source
+
+# browser.close()
+
+# 查找节点
+
+## find_element_by_name()
+##                 id
+##                 css_selector
+##                 xpath
+##                 link_text
+##                 partial_link_text
+##                 tag_name
+##                 class_name
+## find_element(By.ID,id)
+
+# 查找多个节点
+## find_elements 返回列表
+
+
+# 节点交互
+# input = browser.find....
+# input.send_keys('IPAD')
+
+# 动作链
+# 节点拖拽
+# source =
+# target =
+# actions = ActionChains(browser)
+# actions.drag_and_drop(source,target)
+# action.perform()
+
+# selenium官方文档
+
+# 执行自定义的javascript
+
+# browser.execute_script(your_script)
+
+# 获取节点信息
+## find后返回WebElement类型
+## 1.解析库
+## 2.get_attribute()
+## 3..text
+## 获取id、位置、标签名和大小
+## .id
+## .location
+## .tag_name
+## .size
+
+
+# 什么是frame
+## 相当于页面的子页面，结构和外部网页一致，selenium打开页面后，默认是在父级frame里面操作，如果此时页面中还有子frame,是不能获取到子frame里面的结点的，需要切换switch_to.frame()
+
+# 延时等待
+## 隐式等待 browser.implicitly_wait(),默认是0
+## 隐式受网络影响大，使用wait = WebDriverWait(browser,sec_you_set),input=wait.until(EC.presence_of_element_located((By.ID,'q')))
+## EC = expected_conditions
+
+## 等待条件及其含义
+### title_is
+### title_contains
+### presence_of_element_located
+### visibility_of_
+
+
+### gocolly
+
+# browser.back()
+
+# browser.forward()
+
+# get/delete_all/add_cookies
+
+# 选项卡
+
 
 
