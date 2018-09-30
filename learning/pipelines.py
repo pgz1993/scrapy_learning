@@ -65,6 +65,116 @@ class writeMysql(object):
         return item
 
 
+
+
+class writeMysql_movie(object):
+
+    def __init__(self):
+        self.client = pymysql.connect(
+            host='127.0.0.1',
+            port=3306,
+            user='root',  #使用自己的用户名
+            password='MyPass@123',  # 使用自己的密码,如要共享代码，这里可以使用环境变量存储密码
+            db='movie',  # 数据库名
+            charset='utf8'
+        )
+
+        self.cur = self.client.cursor()
+
+
+    def process_item(self,item,spider):
+
+        # sql = 'insert into game(img_url,name,update_time,update_word,author) VALUES (%s,%s,%s,%s,%s)'
+
+
+        sql = 'insert into douban_movie(title,score,audiences,star5,star4,star3,star2,star1,directors,director_links,script_writers,script_writers_links,actors,actors_links,movie_type,web_site,country,language_,initialReleaseDate,run_time,season,episode,episode_runtime,another_name,imdb,summary,celebrities,awards,recommendations,comments_counts,topic_counts,reviews,dicussion,doulist,marks,wishes,url,append_time,questions_count) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+        # lis = (item['title'],item['score'],item['weighting'],item['readers'],item['writers'],item['publish'],item['orgin_name'],item['translators'],item['publish_date'],item['pages'],item['binding'],item['ISBN'],item['tag'],item['series'],item['url'],item['seen'],item['price'],item['writers_link'],item['translators_link'],item['w_summary'],item['series_info'],item['catalog'],item['summary'],item['series_link'])
+        lis = (
+            str(item['title']), str(item['score']), str(item['audiences']), str(item['star5']), str(item['star4']),
+            str(item['star3']), str(item['star2']), str(item['star1']), str(item['directors']),
+            str(item['director_links']), str(item['script_writers']), str(item['script_writers_links']),
+            str(item['actors']), str(item['actors_links']), str(item['movie_type']), str(item['web_site']),
+            str(item['country']), str(item['language_']), str(item['initialReleaseDate']), str(item['run_time']),
+            str(item['season']), str(item['episode']), str(item['episode_runtime']), str(item['another_name']),
+            str(item['imdb']), str(item['summary']), str(item['celebrities']), str(item['awards']),
+            str(item['recommendations']), str(item['comments_counts']), str(item['topic_counts']), str(item['reviews']),
+            str(item['dicussion']), str(item['doulist']), str(item['marks']), str(item['wishes']), str(item['url']),
+            str(item['append_time']),str(item['questions_count'])
+        )
+        self.cur.execute(sql,lis)
+        self.client.commit()
+
+        return item
+    
+
+class writeMysql_tiku(object):
+
+    def __init__(self):
+        self.client = pymysql.connect(
+            host='127.0.0.1',
+            port=3306,
+            user='root',  #使用自己的用户名
+            password='MyPass@123',  # 使用自己的密码,如要共享代码，这里可以使用环境变量存储密码
+            db='tiku',  # 数据库名
+            charset='utf8'
+        )
+
+        self.cur = self.client.cursor()
+
+
+    def process_item(self,item,spider):
+
+        # sql = 'insert into game(img_url,name,update_time,update_word,author) VALUES (%s,%s,%s,%s,%s)'
+
+
+        sql = 'insert into digest(question_type,question,option_,answer) VALUES (%s,%s,%s,%s)'
+        # lis = (item['title'],item['score'],item['weighting'],item['readers'],item['writers'],item['publish'],item['orgin_name'],item['translators'],item['publish_date'],item['pages'],item['binding'],item['ISBN'],item['tag'],item['series'],item['url'],item['seen'],item['price'],item['writers_link'],item['translators_link'],item['w_summary'],item['series_info'],item['catalog'],item['summary'],item['series_link'])
+        lis = (
+            str(item['question_type']),str(item['question']),str(item['option']),str(item['answer'])
+            )
+        
+        self.cur.execute(sql,lis)
+        self.client.commit()
+
+        return item
+
+class writeMysql_sitemap(object):
+
+    def __init__(self):
+        self.client = pymysql.connect(
+            host='127.0.0.1',
+            port=3306,
+            user='root',  #使用自己的用户名
+            password='MyPass@123',  # 使用自己的密码,如要共享代码，这里可以使用环境变量存储密码
+            db='sitemap',  # 数据库名
+            charset='utf8'
+        )
+
+        self.cur = self.client.cursor()
+
+
+    def process_item(self,item,spider):
+
+        # sql = 'insert into game(img_url,name,update_time,update_word,author) VALUES (%s,%s,%s,%s,%s)'
+
+
+        sql = 'insert into douban_sitemap(url,priority,changefreq) VALUES (%s,%s,%s)'
+        # lis = (item['title'],item['score'],item['weighting'],item['readers'],item['writers'],item['publish'],item['orgin_name'],item['translators'],item['publish_date'],item['pages'],item['binding'],item['ISBN'],item['tag'],item['series'],item['url'],item['seen'],item['price'],item['writers_link'],item['translators_link'],item['w_summary'],item['series_info'],item['catalog'],item['summary'],item['series_link'])
+        # lis = (
+        #     str(item['url']),str(item['priority']),str(item['changefreq'])
+        #     )
+        lis = item['list_']
+
+
+        self.cur.executemany(sql,lis)
+        self.client.commit()
+        # INSERT INTO tbl_name (a,b,c) VALUES(1,2,3),(4,5,6),(7,8,9);
+        # param = ((username1, salt1, pwd1), (username2, salt2, pwd2), (username3, salt3, pwd3))
+
+        #n=cursor.executemany(sql,param) 
+
+    
+        # return item
         
 
 

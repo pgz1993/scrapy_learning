@@ -5,6 +5,7 @@ from scrapy.linkextractor import  LinkExtractor
 from scrapy.exceptions import CloseSpider
 import time
 import os
+import shutil
 
 import requests
 
@@ -24,7 +25,13 @@ class CommicSpider(scrapy.Spider):
     name = 'movie'
     # allowed_domains = ['douban']
 
-    start_urls = ["https://movie.douban.com/subject/1292052/?from=subject-page"]
+    #读取本地目录，添加到start_urls
+
+    #爬取完后将文件移动
+
+    for root,dirs,file in os.walk('/Users/hjx/Downloads/website'):
+        #略过一个隐藏文件，使用列表生成式
+        start_urls = ['file:///Users/hjx/Downloads/website/' + i for i in file[1:]]
 
     # print("爬虫开始")
 
@@ -171,52 +178,113 @@ class CommicSpider(scrapy.Spider):
 
         # info = response.xpath('//*[@id="info"]').extract()
 
-        item['title'] = response.css('#content > h1 > span[property=v\\:itemreviewed]::text')[0]
+        item['title'] = response.css('#content > h1 > span[property=v\\:itemreviewed]::text').extract_first()
 
-        item['score'] = response.css('strong[property=v\\:average]::text').extract_first()
+        #可能没有，暂未上映或者评分人数不足
+        item['score'] = score =  response.css('strong[property=v\\:average]::text').extract_first()
+        #可能没有
         item['audiences'] = response.css('span[property=v\\:votes]::text').extract_first()
-        percent = response.css('#interest_sectl > div.rating_wrap.clearbox > div.ratings-on-weight > div > span.rating_per::text').extract()
-        item['star5'] = percent[0]
-        item['star4'] = percent[1]
-        item['star3'] = percent[2]
-        item['star2'] = percent[3]
-        item['star1'] = percent[4]
+        if score is not None:
+            percent = response.css('#interest_sectl > div.rating_wrap.clearbox > div.ratings-on-weight > div > span.rating_per::text').extract()
+            item['star5'] = percent[0]
+            item['star4'] = percent[1]
+            item['star3'] = percent[2]
+            item['star2'] = percent[3]
+            item['star1'] = percent[4]
+
+        else:
+            item['score'] = '0.0'
+            item['star5'] = '0.0%'
+            item['star4'] = '0.0%'
+            item['star3'] = '0.0%'
+            item['star2'] = '0.0%'
+            item['star1'] = '0.0%'
+
 
         item['directors'] = '/'.join(response.css('a[rel=v\\:directedBy]::text').extract())
-        item['director_links'] = '/'.join(response.css('a[rel=v\\:directedBy]::href').extract())
-        item['script_writers'] = '/'.join(response.xpath('//span[text()="编剧"]/following-sibling::span//a::text').extract())
-        item['script_writers_links'] = '/'.join(response.xpath('//span[text()="编剧"]/following-sibling::span//a::href').extract())
+        # item['director_links'] = '/'.join(response.css('a[rel=v\\:directedBy]::attr("href")').extract())
+        item['director_links'] = response.css('a[rel=v\\:directedBy]::attr("href")').extract()
+        item['script_writers'] = '/'.join(response.xpath('//span[text()="编剧"]/following-sibling::span//a/text()').extract())
+        # item['script_writers_links'] = '/'.join(response.xpath('//span[text()="编剧"]/following-sibling::span//a/@href').extract())
+        item['script_writers_links'] = response.xpath('//span[text()="编剧"]/following-sibling::span//a/@href').extract()
         item['actors'] = '/'.join(response.css('a[rel=v\\:starring]::text').extract())
-        item['actors_links'] = '/'.join(response.css('a[rel=v\\:starring]::attr("href")').extract())
-        item['type'] = '/'.join(response.css('span[property=v\\:genre]::text').extract())
+        # item['actors_links'] = '/'.join(response.css('a[rel=v\\:starring]::attr("href")').extract())
+        item['actors_links'] = response.css('a[rel=v\\:starring]::attr("href")').extract()
+        item['movie_type'] = '/'.join(response.css('span[property=v\\:genre]::text').extract())
         item['web_site'] = '/'.join(response.xpath('//span[text()="官方网站:"]/following-sibling::a/text()').extract())
-        item['country'] = response.xpath('//span[./text()="制片国家/地区:"]/following-sibling::text()').extract()[0]
-        item['language_'] = response.xpath('//span[./text()="语言:"]/following-sibling::text()').extract()[0]
+        item['country'] = response.xpath('//span[./text()="制片国家/地区:"]/following-sibling::text()').extract_first()
+        item['language_'] = response.xpath('//span[./text()="语言:"]/following-sibling::text()').extract_first()
         item['initialReleaseDate'] = '/'.join(response.css('span[property=v\\:initialReleaseDate]::text').extract())
+        item['run_time'] = '/'.join(response.css('span[property=v\\:runtime]::text').extract())
         item['season'] = response.css('option[selected=selected]::text').extract_first()
-        item['episode'] = response.xpath('//span[./text()="集数:"]/following-sibling::text()').extract()[0].strip()
-        item['episode_runtime'] = response.xpath('//span[./text()="单集片长:"]/following-sibling::text()').extract()[0].strip()
-        item['another_name'] = response.xpath('//span[./text()="又名:"]/following-sibling::text()').extract()[0].strip()
+
+
+        # item['episode'] = response.xpath('//span[./text()="集数:"]/following-sibling::text()').extract()[0].strip()
+        item['episode'] = response.xpath('//span[./text()="集数:"]/following-sibling::text()').extract_first()
+        item['episode_runtime'] = response.xpath('//span[./text()="单集片长:"]/following-sibling::text()').extract_first()
+        item['another_name'] = response.xpath('//span[./text()="又名:"]/following-sibling::text()').extract_first()
         item['imdb'] = response.xpath('//span[text()="IMDb链接:"]/following-sibling::a/text()').extract_first()
 
-        item['summary'] = '\n'.join(response.xpath('//span[@class="all hidden"]').extract())
+        item['summary'] = '\n'.join(response.xpath('//span[@class="all hidden"]/text()').extract())
         if item['summary'] == '':
             item['summary'] = '\n'.join(response.css('span[property=v\\:summary]::text').extract())
 
         item['celebrities'] = response.xpath('//a[contains(@href,"celebrities")]/@href').extract_first()
+
         item['awards'] = response.xpath('//a[contains(@href,"awards")]/@href').extract_first()
 
         item['recommendations'] = '/'.join(response.xpath('//div[@class="recommendations-bd"]/dl/dd//a/text()').extract())
 
-        item['comments_counts'] = response.xpath('//a[contains(@href,"comments?status=P")]/text()').extract_first().replace("全部 ","").replace(" 条","")
-        important_comments = response.xpath('//*[@id="hot-comments"]/div/div[@class="comment"]/p/span[@class="short"]/text()').extract()
-        important_comments_votes = response.xpath('//*[@id="hot-comments"]/div/div[@class="comment"]/h3/span/span[@class="votes"]/text()').extract()
+        try:
+            item['comments_counts'] = response.xpath('//a[contains(@href,"comments?status=P")]/text()').extract_first().replace(' ','').replace('\n','').replace('全部','').replace('条','')
+        except:
+            item['comments_counts'] = '0'
 
-        item['important_comment1'] = '\t'.join(important_comments[0],important_comments_votes[0])
-        item['important_comment1'] = '\t'.join(important_comments[1],important_comments_votes[1])
-        item['important_comment1'] = '\t'.join(important_comments[2],important_comments_votes[2])
-        item['important_comment1'] = '\t'.join(important_comments[3],important_comments_votes[3])
-        item['important_comment1'] = '\t'.join(important_comments[4],important_comments_votes[4])
+
+        #返回为空的时候，不可迭代，不能作字符处理，但是后续需要统计排序，可以在中间件里面处理，入库可能也麻烦，可以选择在数据库中替换字符？
+        #用extract_first()返回的是None,extract()返回的是[],不可索引
+        #不管有没有，先入库吧，之后再处理，或者mysql 可以对字段的部分进行排序，或者替换
+        item['topic_counts'] = response.xpath('//span[@id="topic-count"]/text()').extract_first()
+
+        try:
+            item['reviews'] = response.xpath('//a[contains(@href,"reviews")]/text()[contains(.,"全部")]').extract_first().replace(' ','').replace('\n','').replace('全部','').replace('条','')
+        except:
+            item['reviews'] = '0'
+
+
+        try:
+            item['dicussion'] = response.xpath('//a[contains(@href,"discussion")]/text()[contains(.,"全部")]').extract_first().replace('\n','').replace(' ','').replace('>去这部影片的讨论区（全部','').replace('条）','')
+        except:
+            item['dicussion'] = '0'
+
+
+
+        item['doulist'] = response.xpath('//a[contains(@href,"doulist")]/@href').extract_first()
+        try:
+            item['marks'] = response.xpath('//a[contains(@href,"collections")]/text()[contains(.,"看过")]').extract_first().replace(' ','').replace('\n','').replace('人看过','')
+        except:
+            item['marks'] = '0'
+        try:
+            item['wishes'] = response.xpath('//a[contains(@href,"wishes")]/text()[contains(.,"想看")]').extract_first().replace(' ','').replace('\n','').replace('人想看','')
+        except:
+            item['wishes'] = '0'
+        try:
+            item['questions_count'] = response.xpath('//a[contains(@href,"questions/?from=subject")]/text()[contains(.,"全部")]').extract_first().replace(' ','').replace('\n','').replace('全部','').replace('个','')
+        except:
+            item['questions_count'] = '0'
+
+        item['url'] = response.url.split('/')[-1].replace('.html','')
+
+        # item['discussion'] = response.xpath()
+
+        #用外键存储，存储键值为url id + comments
+        # important_comments = response.xpath('//*[@id="hot-comments"]/div/div[@class="comment"]/p/span[@class="short"]/text()').extract()
+        # important_comments_votes = response.xpath('//*[@id="hot-comments"]/div/div[@class="comment"]/h3/span/span[@class="votes"]/text()').extract()
+        # item['important_comment1'] = '\t'.join(important_comments[0],important_comments_votes[0])
+        # item['important_comment1'] = '\t'.join(important_comments[1],important_comments_votes[1])
+        # item['important_comment1'] = '\t'.join(important_comments[2],important_comments_votes[2])
+        # item['important_comment1'] = '\t'.join(important_comments[3],important_comments_votes[3])
+        # item['important_comment1'] = '\t'.join(important_comments[4],important_comments_votes[4])
 
 
 
@@ -225,21 +293,27 @@ class CommicSpider(scrapy.Spider):
         # '#interest_sectl > div.rating_wrap.clearbox > div.ratings-on-weight > div > span.rating_per'
 
 
-        item['time'] = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
+        item['append_time'] = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
+
+        file_path = response.url.replace('file://','')
+        shutil.move(file_path,'/Users/hjx/Downloads/had_scrapied')
+
+        yield item
 
 
 
 
 
 
-        item['run_time'] = '/'.join(response.css('span[property=v\\:runtime]::text').extract())
 
 
 
 
 
 
-        item[''] = response.xpath('//span[./text()="制片国家/地区:"]/following-sibling::text()').extract()[0]
+
+
+
 
 
 
@@ -280,7 +354,7 @@ class CommicSpider(scrapy.Spider):
 #
 #         #如果以某个字段为基准，比如出版社以上的a tag 为作者，以下为翻译者的话，当出版社字段不存在，就会出错，所以还是以自身为基准，爬虫会更具健壮性
 #         #有冒号无嵌套
-        item['title'] = response.css('#content > h1 > span[property=v\\:itemreviewed]::text')[0]
+#         item['title'] = response.css('#content > h1 > span[property=v\\:itemreviewed]::text')[0]
 
 
 
@@ -667,24 +741,24 @@ class CommicSpider(scrapy.Spider):
 #         #抽取"喜欢这本书的用户也喜欢"的链接
 #         link = LinkExtractor(restrict_xpaths=('//*[@id="recommendations"]/div/dl/dt/a'))
 #         links = link.extract_links(response)
-
-        links = response.xpath('//*[@id="recommendations"]/div/dl/dt/a/@href').extract()
-        # print(links)
-
-        #如果链接是直接相关的话，也可以用response.follow，会返回一个url实例，然后可以yield相关的url：
-        # links = response.xpath('//*[@id="db-rec-section"]/div//dl//dd').extract()
-
-        # for link in links:
-            # yield response.follow(link,callback=self.parse)
-
-        for link in links:
-        #     # print("弹出一个url")
-        #
-        #     # if link.url.endswith('/'):
-        #         # pass
-        #     # else:
-        #         # link.url = link.url + "/"
-        #     #没有"/"作为结尾的话，网址会重定向，不必要，但是可能是识别爬虫的依据
-        #     yield scrapy.Request(url=link, callback=self.parse)
-            yield scrapy.Request(url=link.url, callback=self.parse,dont_filter=True)
+#
+#         links = response.xpath('//*[@id="recommendations"]/div/dl/dt/a/@href').extract()
+#         # print(links)
+#
+#         #如果链接是直接相关的话，也可以用response.follow，会返回一个url实例，然后可以yield相关的url：
+#         # links = response.xpath('//*[@id="db-rec-section"]/div//dl//dd').extract()
+#
+#         # for link in links:
+#             # yield response.follow(link,callback=self.parse)
+#
+#         for link in links:
+#         #     # print("弹出一个url")
+#         #
+#         #     # if link.url.endswith('/'):
+#         #         # pass
+#         #     # else:
+#         #         # link.url = link.url + "/"
+#         #     #没有"/"作为结尾的话，网址会重定向，不必要，但是可能是识别爬虫的依据
+#         #     yield scrapy.Request(url=link, callback=self.parse)
+#             yield scrapy.Request(url=link.url, callback=self.parse,dont_filter=True)
 
