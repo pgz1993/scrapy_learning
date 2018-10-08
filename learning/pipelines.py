@@ -87,7 +87,7 @@ class writeMysql_movie(object):
         # sql = 'insert into game(img_url,name,update_time,update_word,author) VALUES (%s,%s,%s,%s,%s)'
 
 
-        sql = 'insert into douban_movie(title,score,audiences,star5,star4,star3,star2,star1,directors,director_links,script_writers,script_writers_links,actors,actors_links,movie_type,web_site,country,language_,initialReleaseDate,run_time,season,episode,episode_runtime,another_name,imdb,summary,celebrities,awards,recommendations,comments_counts,topic_counts,reviews,dicussion,doulist,marks,wishes,url,append_time,questions_count) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+        sql = 'insert into douban_movie(title,score,audiences,star5,star4,star3,star2,star1,directors,director_links,script_writers,script_writers_links,actors,actors_links,movie_type,web_site,country,language_,initialReleaseDate,run_time,season,episode,episode_runtime,another_name,imdb,summary,celebrities,awards,recommendations,comments_counts,topic_counts,reviews,dicussion,doulist,marks,wishes,url,append_time,questions_count,seen) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
         # lis = (item['title'],item['score'],item['weighting'],item['readers'],item['writers'],item['publish'],item['orgin_name'],item['translators'],item['publish_date'],item['pages'],item['binding'],item['ISBN'],item['tag'],item['series'],item['url'],item['seen'],item['price'],item['writers_link'],item['translators_link'],item['w_summary'],item['series_info'],item['catalog'],item['summary'],item['series_link'])
         lis = (
             str(item['title']), str(item['score']), str(item['audiences']), str(item['star5']), str(item['star4']),
@@ -99,7 +99,7 @@ class writeMysql_movie(object):
             str(item['imdb']), str(item['summary']), str(item['celebrities']), str(item['awards']),
             str(item['recommendations']), str(item['comments_counts']), str(item['topic_counts']), str(item['reviews']),
             str(item['dicussion']), str(item['doulist']), str(item['marks']), str(item['wishes']), str(item['url']),
-            str(item['append_time']),str(item['questions_count'])
+            str(item['append_time']),str(item['questions_count'],str(item['seen']))
         )
         self.cur.execute(sql,lis)
         self.client.commit()
@@ -158,15 +158,17 @@ class writeMysql_sitemap(object):
         # sql = 'insert into game(img_url,name,update_time,update_word,author) VALUES (%s,%s,%s,%s,%s)'
 
 
-        sql = 'insert into douban_sitemap(url,priority,changefreq) VALUES (%s,%s,%s)'
+        sql = 'insert ignore into douban_sitemap(url,priority,changefreq) VALUES (%s,%s,%s)'
+        # LOAD XML LOCAL INFILE '/Users/hjx/Downloads/douban_sitemap/sitemap1.xml' INTO TABLE db_sitemap ROWS IDENTIFIED BY '<url>' ('sitemap1.xml')
+        # "LOAD XML LOCAL INFILE (%s) INTO TABLE db_sitemap ROWS IDENTIFIED BY '<url>'"
         # lis = (item['title'],item['score'],item['weighting'],item['readers'],item['writers'],item['publish'],item['orgin_name'],item['translators'],item['publish_date'],item['pages'],item['binding'],item['ISBN'],item['tag'],item['series'],item['url'],item['seen'],item['price'],item['writers_link'],item['translators_link'],item['w_summary'],item['series_info'],item['catalog'],item['summary'],item['series_link'])
         # lis = (
         #     str(item['url']),str(item['priority']),str(item['changefreq'])
         #     )
-        lis = item['list_']
+        # lis = item['list_']
 
 
-        self.cur.executemany(sql,lis)
+        self.cur.executemany(sql,item['list_'])
         self.client.commit()
         # INSERT INTO tbl_name (a,b,c) VALUES(1,2,3),(4,5,6),(7,8,9);
         # param = ((username1, salt1, pwd1), (username2, salt2, pwd2), (username3, salt3, pwd3))

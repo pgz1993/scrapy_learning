@@ -31,7 +31,11 @@ class CommicSpider(scrapy.Spider):
 
     for root,dirs,file in os.walk('/Users/hjx/Downloads/website'):
         #略过一个隐藏文件，使用列表生成式
-        start_urls = ['file:///Users/hjx/Downloads/website/' + i for i in file[1:]]
+        start_urls = ['file:///Users/hjx/Downloads/website/' + i for i in file[0:]]
+    try:
+        start_urls.remove('.DS_Store')
+    except:
+        pass
 
     # print("爬虫开始")
 
@@ -274,6 +278,7 @@ class CommicSpider(scrapy.Spider):
             item['questions_count'] = '0'
 
         item['url'] = response.url.split('/')[-1].replace('.html','')
+        item['seen'] = 0
 
         # item['discussion'] = response.xpath()
 
@@ -296,9 +301,13 @@ class CommicSpider(scrapy.Spider):
         item['append_time'] = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
 
         file_path = response.url.replace('file://','')
-        shutil.move(file_path,'/Users/hjx/Downloads/had_scrapied')
+        
 
         yield item
+        try:
+            shutil.move(file_path,'/Users/hjx/Downloads/had_scrapied')
+        except:
+            pass
 
 
 

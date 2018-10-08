@@ -96,6 +96,7 @@ class LearningItem(scrapy.Item):
     wishes = Field()
     append_time = Field()
     questions_count = Field()
+    seen = Field()
 
     #题库
 

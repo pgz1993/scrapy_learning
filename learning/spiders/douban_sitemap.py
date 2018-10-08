@@ -42,26 +42,46 @@ class CommicSpider(scrapy.Spider):
 
         item = LearningItem()
 
-        a = response.xpath('//*[local-name()="url"]')
+        #用一个正则表达式+列表表达式解决下面的这堆东西
+        #
+        #list1 = [[x,y,z] for x,y,z in re.()xxx]
+        #
+        # 这里有两个操作，一个是正则匹配，另一个是列表生成
+        # 
+        # 原来的是获取，正则123，列表添加，而且列表添加每次都要添加5w次
+        # 
+        # re使用捕获组，组，多行匹配
+        # 
+        # 使用compile加速
+        # 
+        # # rcm=re.compile(r’^/d+’,re.M)   
 
-        item_list = []
+        # a = response.xpath('//*[local-name()="url"]')
+        # 
+        a = response.text
 
-        for result in a:
+        rule = re.compile(r'<loc>(.[^<>]*)</loc>\n    <priority>(.[^<>]*)</priority>\n    <changefreq>(.[^<>]*)</changefreq>')
 
-            # item['url'] = result.xpath('./*[local-name()="loc"]/text()').extract_first()
-            # item['url'] = result.re_first(r'(?<=<loc>).*(?=</loc>)')
-            url = result.re_first(r'(?<=<loc>).*(?=</loc>)')
-            # item['priority'] = result.xpath('./*[local-name()="priority"]/text()').extract_first()
-            # item['priority'] = result.re_first(r'(?<=<priority>).*(?=</priority>)')
-            priority = result.re_first(r'(?<=<priority>).*(?=</priority>)')
-            # item['changefreq'] = result.xpath('./*[local-name()="changefreq"]/text()').extract_first()
-            # item['changefreq'] = result.re_first(r'(?<=<changefreq>).*(?=</changefreq>)')
-            changefreq = result.re_first(r'(?<=<changefreq>).*(?=</changefreq>)')
+        result = rule.findall(a)
 
-            item_list.append([url,priority,changefreq])
+        # item_list = []
+
+        # for result in a:
+
+        #     # item['url'] = result.xpath('./*[local-name()="loc"]/text()').extract_first()
+        #     # item['url'] = result.re_first(r'(?<=<loc>).*(?=</loc>)')
+        #     url = result.re_first(r'(?<=<loc>).*(?=</loc>)')
+        #     # item['priority'] = result.xpath('./*[local-name()="priority"]/text()').extract_first()
+        #     # item['priority'] = result.re_first(r'(?<=<priority>).*(?=</priority>)')
+        #     priority = result.re_first(r'(?<=<priority>).*(?=</priority>)')
+        #     # item['changefreq'] = result.xpath('./*[local-name()="changefreq"]/text()').extract_first()
+        #     # item['changefreq'] = result.re_first(r'(?<=<changefreq>).*(?=</changefreq>)')
+        #     changefreq = result.re_first(r'(?<=<changefreq>).*(?=</changefreq>)')
+
+        #     item_list.append([url,priority,changefreq])
             # yield item_loader
 
-        item['list_'] = item_list
+        item['list_'] = result
         yield item
 
 

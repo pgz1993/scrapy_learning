@@ -109,9 +109,9 @@ ITEM_PIPELINES = {
     # 'learning.pipelines.StripPipeline':600,
     # 'learning.pipelines.writeMysql': 700,
     # 'scrapy_crawlera.CrawleraMiddleware':100,
-    #'learning.pipelines.writeMysql_movie':700,
+    'learning.pipelines.writeMysql_movie':700,
     # 'learning.pipelines.writeMysql_tiku':700,
-    'learning.pipelines.writeMysql_sitemap':700,
+    # 'learning.pipelines.writeMysql_sitemap':700,
 
 }
 
@@ -132,11 +132,11 @@ DOWNLOAD_DELAY = 0
 # CLOSESPIDER_TIMEOUT = 82800 # 23小时后结束爬虫
 
 #多线程
-CONCURRENT_REQUESTS = 1000
+CONCURRENT_REQUESTS = 32
 
-CONCURRENT_REQUESTS_PER_DOMAIN = 1000
+CONCURRENT_REQUESTS_PER_DOMAIN = 32
 
-CONCURRENT_REQUESTS_PER_IP = 1000
+CONCURRENT_REQUESTS_PER_IP = 32
 
 # 禁用cookies
 # COOKIES_ENABLED = False

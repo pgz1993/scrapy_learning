@@ -24,7 +24,7 @@ class CommicSpider(scrapy.Spider):
     name = 'download'
     # allowed_domains = ['douban']
 
-    start_urls = ['https://movie.douban.com/subject/1292052/?from=subject-page']
+    start_urls = ['https://movie.douban.com/subject/1783466/?from=subject-page']
 
     # print("爬虫开始")
 
@@ -37,15 +37,15 @@ class CommicSpider(scrapy.Spider):
         # title = response.re(r'(?<=(<span property="v:itemreviewed">).*(?=</span>))')
         # print(title)
 
-        # if response.status != 200 or 'sec.douban.com' in response.text or "此应用出错" in response.text:
-        #
-        #     raise CloseSpider('强制停止!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-        #
-        # else:
-        #
-        #     with open('/Users/hjx/Downloads/website/' + response.url.split('/')[-2] + '.html','w+') as store_file:
-        #         store_file.write(response.text)
-        #     store_file.close()
+        if response.status != 200 or 'sec.douban.com' in response.text or "此应用出错" in response.text:
+        
+            raise CloseSpider('强制停止!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+        
+        else:
+        
+            with open('/Users/hjx/Downloads/website/' + response.url.split('/')[-2] + '.html','w+') as store_file:
+                store_file.write(response.text)
+            store_file.close()
 
 
         # IO成为瓶颈
